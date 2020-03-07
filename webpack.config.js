@@ -18,6 +18,7 @@ module.exports = (env, argv) => {
     resolve: {
       alias: {
         "@": path.resolve(__dirname, "./src"),
+        "@lib": path.resolve(__dirname, "./src/lib"),
         "@utils": path.resolve(__dirname, "./src/util"),
         "@pages": path.resolve(__dirname, "./src/pages"),
         "@styles": path.resolve(__dirname, "./src/styles"),
@@ -91,7 +92,8 @@ module.exports = (env, argv) => {
     externals: {
       vue: "Vue",
       vuex: "Vuex",
-      "vue-router": "VueRouter"
+      "vue-router": "VueRouter",
+      "vue-awesome": "VueAwesome"
     },
   }
 

@@ -62,7 +62,10 @@ export const constantRouterArr = [
   {
     path: "/404",
     name: "404",
-    component: NotFound
+    component: NotFound,
+    meta: {
+      layout: 'layout-a'
+    }
   },
   {
     path: "*",
