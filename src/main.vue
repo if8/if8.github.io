@@ -38,6 +38,5 @@ body {
 </style>
 <style lang="scss" scoped>
 .app {
-  height: 2000px;
 }
 </style>

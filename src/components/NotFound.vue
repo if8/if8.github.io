@@ -1,10 +1,6 @@
 <template>
   <div class="not-found">
-    <div class="_404">404</div>
-    <hr />
-    <div class="_1">THE PAGE</div>
-    <div class="_2">WAS NOT FOUND</div>
-    <a class="btn" href="#">BACK TO MARS</a>
+
   </div>
 </template>
 
@@ -19,56 +15,6 @@ export default {
 </script>
 <style lang="scss" scoped>
 .not-found {
-  background: #2d77ee;
-  color: #fff;
-
-  ._404 {
-    font-size: 220px;
-    position: relative;
-    display: inline-block;
-    z-index: 2;
-    height: 250px;
-    letter-spacing: 15px;
-  }
-  ._1 {
-    text-align: center;
-    display: block;
-    position: relative;
-    letter-spacing: 12px;
-    font-size: 4em;
-    line-height: 80%;
-  }
-  ._2 {
-    text-align: center;
-    display: block;
-    position: relative;
-    font-size: 20px;
-  }
-
-  .btn {
-    background-color: rgb(255, 255, 255);
-    position: relative;
-    display: inline-block;
-    width: 358px;
-    padding: 5px;
-    z-index: 5;
-    font-size: 25px;
-    margin: 0 auto;
-    color: #33cc99;
-    text-decoration: none;
-    margin-right: 10px;
-  }
-
-  hr {
-    padding: 0;
-    border: none;
-    border-top: 5px solid #fff;
-    color: #fff;
-    text-align: center;
-    margin: 0px auto;
-    width: 420px;
-    height: 10px;
-    z-index: -10;
-  }
+  height: 2000px;
 }
 </style>
