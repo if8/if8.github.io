@@ -1,17 +1,13 @@
 <template>
   <component :is="layout" class="app">
     <router-view />
-    <BackTop />
   </component>
 </template>
 
 <script>
-import BackTop from '@components/BackTop.vue'
+
 export default {
   name: `main`,
-  components: {
-    BackTop
-  },
   computed: {
     layout () {
       var matchList = this.$route.matched

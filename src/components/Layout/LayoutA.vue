@@ -5,12 +5,17 @@
       <div class="header"></div>
       <slot></slot>
     </div>
+    <BackTop target=".layout-a" />
   </div>
 </template>
 
 <script>
+import BackTop from '@components/BackTop.vue'
 export default {
-  name: 'LayoutA'
+  name: 'LayoutA',
+  components: {
+    BackTop
+  },
 }
 </script>
 

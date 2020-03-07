@@ -18,6 +18,7 @@
 
 <script>
 import { throttle } from '@lib/min-throttle.js';
+import { addCaptureScroll } from '@lib/scroll-listener'
 const cubic = value => Math.pow(value, 3);
 const easeInOutCubic = value => value < 0.5
   ? cubic(value * 2) / 2
@@ -58,7 +59,7 @@ export default {
   mounted () {
     this.init();
     this.throttledScrollHandler = throttle(this.onScroll, 300);
-    this.container.addEventListener('scroll', this.throttledScrollHandler);
+    this.removeCaptureScroll = addCaptureScroll(this.throttledScrollHandler);
   },
   methods: {
     init () {
@@ -72,9 +73,11 @@ export default {
         this.container = this.el;
       }
     },
-    onScroll () {
-      const scrollTop = this.el.scrollTop;
-      this.visible = scrollTop >= this.visibilityHeight;
+    onScroll (event) {
+      if (this.container === event.target) {
+        const scrollTop = this.el.scrollTop;
+        this.visible = scrollTop >= this.visibilityHeight;
+      }
     },
     handleClick (e) {
       this.scrollToTop();
@@ -98,7 +101,7 @@ export default {
     }
   },
   beforeDestroy () {
-    this.container.removeEventListener('scroll', this.throttledScrollHandler);
+    this.removeCaptureScroll && this.removeCaptureScroll()
   }
 };
 </script>

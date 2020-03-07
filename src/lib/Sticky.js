@@ -1,3 +1,5 @@
+import { addCaptureScroll } from './scroll-listener'
+
 function _getStickyVal () {
   let el = document.createElement('a')
   let mStyle = el.style
@@ -32,24 +34,6 @@ const rAF =
   window.mozRequestAnimationFrame ||
   window.webkitRequestAnimationFrame ||
   window.msRequestAnimationFrame
-
-let captureScrollQueue = []
-window.addEventListener('scroll', function (e) {
-  for (let i = 0; i < captureScrollQueue.length; i++) {
-    captureScrollQueue[i](e)
-  }
-}, true)
-
-function addCaptureScroll (f) {
-  if (!captureScrollQueue.includes(f)) {
-    captureScrollQueue.push(f)
-  }
-  return function remove () { removeCaptureScroll(f) }
-}
-
-function removeCaptureScroll (f) {
-  captureScrollQueue = captureScrollQueue.filter(item => item !== f)
-}
 
 class Sticky {
   constructor (target, o = {}) {
@@ -122,7 +106,7 @@ class Sticky {
 
   addListener () {
     if (this.options.useClasses || (this.options.needSticky && !this.stickyVal)) {
-      addCaptureScroll(this.scrollCall)
+      this.removeCaptureScroll = addCaptureScroll(this.scrollCall)
     }
   }
 
@@ -282,7 +266,7 @@ class Sticky {
 
   cleanup () {
     this.fixOptions('invalid')
-    removeCaptureScroll(this.scrollCall)
+    this.removeCaptureScroll && this.removeCaptureScroll(this.scrollCall)
   }
 }
 
