@@ -1,7 +1,8 @@
 <template>
   <div class="home-index">
-    <div class="test">home-index</div>
+    <div class="test">home-indexee</div>
     <router-view></router-view>
+    <div class="b">dfsdkjlle</div>
   </div>
 </template>
 
@@ -12,9 +13,11 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import '@styles/var.scss';
+
 .home-index {
   .test {
-    color: red;
+    color: $--color-success;
   }
 }
 </style>

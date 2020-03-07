@@ -5,15 +5,6 @@ var copyWebpackPlugin = require("copy-webpack-plugin")
 var vueLoaderPlugin = require("vue-loader/lib/plugin")
 var miniCssExtractPlugin = require("mini-css-extract-plugin")
 
-var cssLoader = {
-  loader: 'css-loader',
-  options: {
-    alias: {
-      'styles': path.resolve(__dirname, './src/styles')
-    }
-  }
-}
-
 module.exports = (env, argv) => {
   let config = {
     entry: {
@@ -29,6 +20,7 @@ module.exports = (env, argv) => {
         "@": path.resolve(__dirname, "./src"),
         "@utils": path.resolve(__dirname, "./src/util"),
         "@pages": path.resolve(__dirname, "./src/pages"),
+        "@styles": path.resolve(__dirname, "./src/styles"),
         "@components": path.resolve(__dirname, "./src/components"),
       }
     },
@@ -36,21 +28,21 @@ module.exports = (env, argv) => {
       rules: [
         {
           test: /\.scss$/,
-          use: [miniCssExtractPlugin.loader, "css-loader", 'sass-loader']
+          use: [miniCssExtractPlugin.loader, 'css-loader', 'sass-loader']
         },
         {
           test: /\.css$/,
-          use: [miniCssExtractPlugin.loader, "css-loader"]
+          use: [miniCssExtractPlugin.loader, 'css-loader']
         },
         {
           test: /\.vue$/,
           loader: "vue-loader",
           options: {
             loaders: {
-              css: [miniCssExtractPlugin.loader, cssLoader],
-              postcss: [miniCssExtractPlugin.loader, cssLoader],
-              sass: [miniCssExtractPlugin.loader, cssLoader, 'sass-loader'],
-              scss: [miniCssExtractPlugin.loader, cssLoader, 'sass-loader'],
+              css: [miniCssExtractPlugin.loader, 'css-loader'],
+              postcss: [miniCssExtractPlugin.loader, 'css-loader'],
+              sass: [miniCssExtractPlugin.loader, 'css-loader', 'sass-loader'],
+              scss: [miniCssExtractPlugin.loader, 'css-loader', 'sass-loader'],
             }
           }
         },
@@ -100,14 +92,20 @@ module.exports = (env, argv) => {
       vue: "Vue",
       vuex: "Vuex",
       "vue-router": "VueRouter"
-    }
+    },
   }
 
   if (argv.mode === "development") {
     config.devServer = {
-      contentBase: path.resolve(__dirname),
+      contentBase: path.resolve(__dirname, 'src', 'public'),
       compress: true,
-      historyApiFallback: true
+      historyApiFallback: true,
+      open: true,
+      openPage: 'static',
+      watchOptions: {
+        aggregateTimeout: 300,
+        poll: 1000
+      }
     }
   }
 

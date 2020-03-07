@@ -2,6 +2,7 @@ import Vue from "vue"
 import Vuex from 'vuex'
 import Router from 'vue-router'
 import App from "./main.vue"
+import '@styles/reboot.css'
 
 import initRouter from './router/index.js'
 import initStore from './store/index.js'
