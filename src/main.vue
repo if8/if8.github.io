@@ -1,6 +1,5 @@
 <template>
   <component :is="layout" class="app">
-    <router-view />
   </component>
 </template>
 
@@ -20,7 +19,7 @@ export default {
           return meta.layout
         }
       }
-      return 'div'
+      return 'layout-c'
     }
   },
 }

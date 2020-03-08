@@ -7,7 +7,7 @@ import Meta from 'vue-meta'
 import initLayout from "@components/Layout/index.js"
 import initRouter from './router/index.js'
 import initStore from './store/index.js'
-import '@styles/reboot.css'
+import '@bulma/index.sass'
 import '@styles/common.scss'
 
 initLayout(Vue)

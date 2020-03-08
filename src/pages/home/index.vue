@@ -13,11 +13,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '@styles/var.scss';
-
+@import "@styles/var.scss";
 .home-index {
   .test {
-    color: $--color-success;
+    color: $black;
   }
 }
 </style>

@@ -22,28 +22,54 @@ module.exports = (env, argv) => {
         "@utils": path.resolve(__dirname, "./src/util"),
         "@pages": path.resolve(__dirname, "./src/pages"),
         "@styles": path.resolve(__dirname, "./src/styles"),
-        "@components": path.resolve(__dirname, "./src/components"),
+        "@bulma": path.resolve(__dirname, "./src/styles/bulma"),
+        "@components": path.resolve(__dirname, "./src/components")
       }
     },
     module: {
       rules: [
         {
           test: /\.scss$/,
-          use: [miniCssExtractPlugin.loader, 'css-loader', 'sass-loader']
+          use: [miniCssExtractPlugin.loader, "css-loader", "sass-loader"]
+        },
+        {
+          test: /\.sass$/,
+          use: [
+            miniCssExtractPlugin.loader,
+            "css-loader",
+            {
+              loader: "sass-loader",
+              options: { sassOptions: { indentedSyntax: true } }
+            }
+          ]
         },
         {
           test: /\.css$/,
-          use: [miniCssExtractPlugin.loader, 'css-loader']
+          use: [miniCssExtractPlugin.loader, "css-loader"]
         },
         {
           test: /\.vue$/,
           loader: "vue-loader",
           options: {
             loaders: {
-              css: [miniCssExtractPlugin.loader, 'css-loader'],
-              postcss: [miniCssExtractPlugin.loader, 'css-loader'],
-              sass: [miniCssExtractPlugin.loader, 'css-loader', 'sass-loader'],
-              scss: [miniCssExtractPlugin.loader, 'css-loader', 'sass-loader'],
+              css: [miniCssExtractPlugin.loader, "css-loader"],
+              postcss: [miniCssExtractPlugin.loader, "css-loader"],
+              sass: [
+                miniCssExtractPlugin.loader,
+                "css-loader",
+                {
+                  loader: "sass-loader",
+                  options: { indentedSyntax: true }
+                }
+              ],
+              scss: [
+                miniCssExtractPlugin.loader,
+                "css-loader",
+                {
+                  loader: "sass-loader",
+                  options: { sassOptions: { indentedSyntax: true } }
+                }
+              ]
             }
           }
         },
@@ -83,7 +109,7 @@ module.exports = (env, argv) => {
         {
           context: "src/public",
           from: "*",
-          to: path.join(__dirname, 'static')
+          to: path.join(__dirname, "static")
         }
       ]),
 
@@ -94,16 +120,16 @@ module.exports = (env, argv) => {
       vuex: "Vuex",
       "vue-router": "VueRouter",
       "vue-awesome": "VueAwesome"
-    },
+    }
   }
 
   if (argv.mode === "development") {
     config.devServer = {
-      contentBase: path.resolve(__dirname, 'src', 'public'),
+      contentBase: path.resolve(__dirname, "src", "public"),
       compress: true,
       historyApiFallback: true,
       open: true,
-      openPage: 'static',
+      openPage: "static",
       watchOptions: {
         aggregateTimeout: 300,
         poll: 1000

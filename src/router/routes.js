@@ -57,7 +57,10 @@ export const constantRouterArr = [
   {
     path: "/",
     name: "home",
-    component: Home
+    component: Home,
+    meta: {
+      layout: 'layout-b'
+    }
   },
   {
     path: "/404",
@@ -65,6 +68,14 @@ export const constantRouterArr = [
     component: NotFound,
     meta: {
       layout: 'layout-a'
+    }
+  },
+  {
+    path: "/c",
+    name: "c",
+    component: NotFound,
+    meta: {
+      layout: 'layout-c'
     }
   },
   {

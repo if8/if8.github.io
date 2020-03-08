@@ -3,7 +3,7 @@
     <div class="aside"></div>
     <div class="main">
       <div class="header"></div>
-      <slot></slot>
+      <router-view />
     </div>
     <BackTop target=".layout-a" />
   </div>
