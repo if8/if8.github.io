@@ -1,8 +1,55 @@
 <template>
   <div class="layout-a">
-    <div class="aside"></div>
+    <div class="aside">
+      <SidePanel></SidePanel>
+    </div>
     <div class="main">
-      <div class="header"></div>
+      <nav aria-label="breadcrumbs" class="header breadcrumb">
+        <ul>
+          <li>
+            <a href="#">Bulma</a>
+          </li>
+          <li>
+            <a href="#">Documentation</a>
+          </li>
+          <li>
+            <a href="#">Components</a>
+          </li>
+          <li class="is-active">
+            <a aria-current="page" href="#">Breadcrumb</a>
+          </li>
+        </ul>
+      </nav>
+      
+      <v-popover :auto-hide="false" open-group="group1">
+        <button class="button">
+          <span class="icon is-small">
+            <v-icon name="camera" />
+          </span>
+        </button>
+      </v-popover>
+
+      <div class="dropdown is-active">
+        <div class="dropdown-trigger">
+          <button aria-controls="dropdown-menu" aria-haspopup="true" class="button">
+            <span>Dropdown button</span>
+            <span class="icon is-small">
+              <v-icon name="camera" />
+            </span>
+          </button>
+        </div>
+        <div class="dropdown-menu" id="dropdown-menu" role="menu">
+          <div class="dropdown-content">
+            <a class="dropdown-item" href="#">Dropdown item</a>
+            <a class="dropdown-item">Other dropdown item</a>
+            <a class="dropdown-item is-active" href="#">Active dropdown item</a>
+            <a class="dropdown-item" href="#">Other dropdown item</a>
+            <hr class="dropdown-divider" />
+            <a class="dropdown-item" href="#">With a divider</a>
+          </div>
+        </div>
+      </div>
+      <MessageBox />
       <router-view />
     </div>
     <BackTop target=".layout-a" />
@@ -11,16 +58,21 @@
 
 <script>
 import BackTop from '@components/BackTop.vue'
+import SidePanel from '@components/SidePanel.vue'
+import MessageBox from '@components/MessageBox.vue'
+
 export default {
   name: 'LayoutA',
   components: {
-    BackTop
+    BackTop,
+    SidePanel,
+    MessageBox
   },
 }
 </script>
 
 <style lang="scss" scoped>
-$nav-height: 70px !default;
+$nav-height: 0px !default;
 $aside-width: 300px !default;
 $vertical-margin: 0px !default;
 $horizon-margin: 0px !default;

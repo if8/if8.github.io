@@ -7,6 +7,8 @@ import Meta from 'vue-meta'
 import initLayout from "@components/Layout/index.js"
 import initRouter from './router/index.js'
 import initStore from './store/index.js'
+import VTooltip from 'v-tooltip'
+
 import '@bulma/index.sass'
 import '@styles/common.scss'
 
@@ -21,6 +23,7 @@ Vue.use(Meta, {
   attribute: 'data-vue-meta', // the attribute name vue-meta adds to the tags it observes
   tagIDKeyName: 'vmid' // the property name that vue-meta uses to determine whether to overwrite or append a tag
 })
+Vue.use(VTooltip)
 
 window.App = new Vue({
   el: '#app',

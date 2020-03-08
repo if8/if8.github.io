@@ -1,2 +1,6 @@
 @import "./var.scss";
 @import "./transition.scss";
+
+* {
+  scroll-behavior: smooth;
+}

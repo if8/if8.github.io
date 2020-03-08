@@ -1,7 +1,7 @@
 <template>
   <div class="layout-c">
     <div class="header py-40 text-center">
-      <h1>
+      <h1 class="title">
         Your Stars
       </h1>
       <p>
