@@ -10,7 +10,10 @@
       @click.stop="handleClick"
     >
       <slot>
-        <v-icon name="arrow-up" />
+        <b-icon
+          pack="fas"
+          icon="angle-double-up"
+        />
       </slot>
     </div>
   </transition>

@@ -22,7 +22,6 @@ module.exports = (env, argv) => {
         "@utils": path.resolve(__dirname, "./src/utils"),
         "@pages": path.resolve(__dirname, "./src/pages"),
         "@styles": path.resolve(__dirname, "./src/styles"),
-        "@bulma": path.resolve(__dirname, "./src/styles/bulma"),
         "@components": path.resolve(__dirname, "./src/components")
       }
     },
@@ -107,8 +106,7 @@ module.exports = (env, argv) => {
 
       new copyWebpackPlugin([
         {
-          context: "src/public",
-          from: "*",
+          from: "src/public",
           to: path.join(__dirname, "static")
         }
       ]),
@@ -119,7 +117,6 @@ module.exports = (env, argv) => {
       vue: "Vue",
       vuex: "Vuex",
       "vue-router": "VueRouter",
-      "vue-awesome": "VueAwesome"
     }
   }
 

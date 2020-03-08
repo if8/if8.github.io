@@ -5,9 +5,10 @@
       :key="name"
       class="icon-wrap"
     >
-      <v-icon
-        :name="name"
-        :scale="4"
+      <b-icon
+        pack="fas"
+        :icon="name"
+        size="is-large"
       />
       <div>{{ name }}</div>
     </div>

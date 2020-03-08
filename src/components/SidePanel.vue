@@ -11,8 +11,11 @@
           type="text"
         >
         <span class="icon is-left">
-          <v-icon name="camera" />
-        </span>
+          <b-icon
+            pack="fas"
+            icon="user"
+            size="is-small"
+          />        </span>
       </p>
     </div>
     <p class="panel-tabs">
@@ -24,37 +27,56 @@
     </p>
     <a class="panel-block is-active">
       <span class="panel-icon">
-        <v-icon name="camera" />
-      </span>
+        <b-icon
+          pack="fas"
+          icon="user"
+          size="is-small"
+        />      </span>
       bulma
     </a>
     <a class="panel-block">
       <span class="panel-icon">
-        <v-icon name="camera" />
-      </span>
+        <b-icon
+          pack="fas"
+          icon="user"
+          size="is-small"
+        />      </span>
       marksheet
     </a>
     <a class="panel-block">
       <span class="panel-icon">
-        <v-icon name="camera" />
-      </span>
+        <b-icon
+          pack="fas"
+          icon="user"
+          size="is-small"
+        />      </span>
       minireset.css
     </a>
     <a class="panel-block">
       <span class="panel-icon">
-        <v-icon name="camera" />
-      </span>
+        <b-icon
+          pack="fas"
+          icon="user"
+          size="is-small"
+        />      </span>
       jgthms.github.io
     </a>
     <a class="panel-block">
       <span class="panel-icon">
-        <v-icon name="camera" />
-      </span>
+        <b-icon
+          pack="fas"
+          icon="user"
+          size="is-small"
+        />      </span>
       daniellowtw/infboard
     </a>
     <a class="panel-block">
       <span class="panel-icon">
-        <v-icon name="camera" />
+        <b-icon
+          pack="fas"
+          icon="user"
+          size="is-small"
+        />
       </span>
       mojs
     </a>

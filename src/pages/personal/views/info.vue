@@ -34,7 +34,11 @@
         >
           <span>Dropdown button</span>
           <span class="icon is-small">
-            <v-icon name="camera" />
+            <b-icon
+              pack="fas"
+              icon="user"
+              size="is-small"
+            />
           </span>
         </button>
       </div>

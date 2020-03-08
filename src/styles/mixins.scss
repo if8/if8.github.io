@@ -1,4 +1,10 @@
-@import "@bulma/utilities/mixins.sass";
+@mixin clearfix() {
+  &::after {
+    clear: both;
+    content: " ";
+    display: table;
+  }
+}
 
 @mixin text-ellipsis($width: 100%, $display: inline-block) {
   display: $display;
