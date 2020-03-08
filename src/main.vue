@@ -1,12 +1,19 @@
 <template>
-  <component :is="layout" class="app">
-  </component>
+  <div class="app">
+    <!-- <AutoScroll /> -->
+    <component
+      :is="layout"
+    />
+  </div>
 </template>
 
 <script>
-
+import AutoScroll from '../demo/AutoScroll.vue'
 export default {
   name: `main`,
+  components: {
+    AutoScroll
+  },
   computed: {
     layout () {
       var matchList = this.$route.matched
@@ -27,7 +34,8 @@ export default {
 
 <style lang="scss">
 html,
-body {
+body,
+.app {
   height: 100%;
 }
 </style>

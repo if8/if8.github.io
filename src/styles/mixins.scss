@@ -1,0 +1,27 @@
+@import "@bulma/utilities/mixins.sass";
+
+@mixin text-ellipsis($width: 100%, $display: inline-block) {
+  display: $display;
+  max-width: $width;
+  overflow: hidden;
+  white-space: nowrap;
+  word-wrap: normal;
+  text-overflow: ellipsis;
+}
+
+@mixin one-pix-line($pos: 'bottom', $color: $--border-color, $style: solid) {
+  $prop: border-#{$pos};
+  @if $pos == 'all' {
+    $prop: border;
+  }
+  #{$prop}: 1px $style $color;
+  @media (min-resolution: 2dppx) {
+    #{$prop}: .5px $style $color;
+  }
+  @media (min-resolution: 3dppx) {
+    #{$prop}: .333333px $style $color;
+  }
+  @media (min-resolution: 4dppx) {
+    #{$prop}: .25px $style $color;
+  }
+}

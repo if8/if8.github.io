@@ -1,4 +1,4 @@
-const files = require.context("@components/Layout", true, /\.vue$/)
+const files = require.context("@components/Layout", false, /\.vue$/)
 
 export default function (Vue) {
   files.keys().forEach(function (path) {

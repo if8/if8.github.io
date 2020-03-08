@@ -35,6 +35,7 @@ export default {
   height: 100%;
   .main {
     padding-top: 60px;
+    margin-top: -60px;
     height: 100%;
     display: flex;
     .main-left,
@@ -48,13 +49,11 @@ export default {
   }
 }
 </style>
+
 <style lang="scss">
 .layout-b {
   .top-nav {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
+    position: sticky;
     box-shadow: 0 2px 0 0 #f5f5f5;
   }
 }
