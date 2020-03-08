@@ -1,93 +1,12 @@
 <template>
   <div class="layout-a smooth-scroll">
-    <div class="aside">
+    <div class="aside smooth-scroll">
+      <PersonCard />
       <SidePanel />
     </div>
     <div class="main">
-      <nav
-        aria-label="breadcrumbs"
-        class="header breadcrumb"
-      >
-        <ul>
-          <li>
-            <a href="#">Bulma</a>
-          </li>
-          <li>
-            <a href="#">Documentation</a>
-          </li>
-          <li>
-            <a href="#">Components</a>
-          </li>
-          <li class="is-active">
-            <a
-              aria-current="page"
-              href="#"
-            >Breadcrumb</a>
-          </li>
-        </ul>
-      </nav>
-
-      <v-popover
-        :auto-hide="false"
-        open-group="group1"
-      >
-        <button class="button">
-          <span class="icon is-small has-text-warning">
-            <v-icon name="camera" />
-          </span>
-        </button>
-        <div slot="popover">
-          立刻接受了定金付老师看见的分离技术多了几分
-        </div>
-      </v-popover>
-
-      <div class="dropdown is-active">
-        <div class="dropdown-trigger">
-          <button
-            aria-controls="dropdown-menu"
-            aria-haspopup="true"
-            class="button"
-          >
-            <span>Dropdown button</span>
-            <span class="icon is-small">
-              <v-icon name="camera" />
-            </span>
-          </button>
-        </div>
-        <div
-          id="dropdown-menu"
-          class="dropdown-menu"
-          role="menu"
-        >
-          <div class="dropdown-content">
-            <a
-              class="dropdown-item"
-              href="#"
-            >Dropdown item</a>
-            <a class="dropdown-item">Other dropdown item</a>
-            <a
-              class="dropdown-item is-active"
-              href="#"
-            >Active dropdown item</a>
-            <a
-              class="dropdown-item"
-              href="#"
-            >Other dropdown item</a>
-            <hr class="dropdown-divider">
-            <a
-              class="dropdown-item"
-              href="#"
-            >With a divider</a>
-          </div>
-        </div>
-      </div>
-
-      <MessageBox />
-
-      <div class="why">
-        sdkj
-      </div>
       <router-view />
+      <MessageBox />
     </div>
     <BackTop target=".layout-a" />
   </div>
@@ -95,6 +14,7 @@
 
 <script>
 import BackTop from '@components/BackTop.vue'
+import PersonCard from '@components/PersonCard.vue'
 import SidePanel from '@components/SidePanel.vue'
 import MessageBox from '@components/MessageBox.vue'
 
@@ -103,7 +23,8 @@ export default {
   components: {
     BackTop,
     SidePanel,
-    MessageBox
+    MessageBox,
+    PersonCard
   },
 }
 </script>
