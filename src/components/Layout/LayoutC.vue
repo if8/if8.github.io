@@ -1,5 +1,5 @@
 <template>
-  <div class="layout-c">
+  <div class="layout-c smooth-scroll">
     <div class="header py-40 text-center">
       <h1 class="title">
         Your Stars
@@ -16,7 +16,7 @@
 <script>
 import BackTop from '@components/BackTop.vue'
 export default {
-  name: 'layout-c',
+  name: 'LayoutC',
   components: {
     BackTop
   },
@@ -25,7 +25,6 @@ export default {
 
 <style lang="scss" scoped>
 .layout-c {
-  overflow: auto;
   height: 100%;
   .py-40 {
     padding-top: 40px;

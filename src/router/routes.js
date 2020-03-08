@@ -3,6 +3,7 @@ import CompError from "@components/CompError.vue"
 import CompLoading from "@components/CompLoading.vue"
 import NotFound from "@components/NotFound.vue"
 import Home from "@pages/home/index.vue"
+import ShowIcons from "@components/ShowIcons.vue"
 
 export function lazyLoadView(AsyncView) {
   const AsyncHandler = () => ({
@@ -59,7 +60,15 @@ export const constantRouterArr = [
     name: "home",
     component: Home,
     meta: {
-      layout: 'layout-b'
+      layout: 'LayoutB'
+    }
+  },
+  {
+    path: "/icons",
+    name: "icons",
+    component: ShowIcons,
+    meta: {
+      layout: 'LayoutEmpty'
     }
   },
   {
@@ -67,7 +76,7 @@ export const constantRouterArr = [
     name: "404",
     component: NotFound,
     meta: {
-      layout: 'layout-a'
+      layout: 'LayoutA'
     }
   },
   {
@@ -75,7 +84,7 @@ export const constantRouterArr = [
     name: "c",
     component: NotFound,
     meta: {
-      layout: 'layout-c'
+      layout: 'LayoutC'
     }
   },
   {

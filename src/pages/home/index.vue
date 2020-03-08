@@ -1,8 +1,12 @@
 <template>
   <div class="home-index">
-    <div class="test">home-indexee</div>
-    <router-view></router-view>
-    <div class="b">dfsdkjlle</div>
+    <div class="test">
+      home-index
+    </div>
+    <router-view />
+    <div class="b">
+      是的弗兰克
+    </div>
   </div>
 </template>
 

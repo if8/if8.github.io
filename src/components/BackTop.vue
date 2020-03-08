@@ -1,28 +1,25 @@
 <template>
   <transition name="fade-in">
     <div
+      v-if="visible"
       :style="{
         'right': styleRight,
         'bottom': styleBottom
       }"
-      @click.stop="handleClick"
       class="back-top"
-      v-if="visible"
+      @click.stop="handleClick"
     >
       <slot>
-        <v-icon name="camera"/>
+        <v-icon name="arrow-up" />
       </slot>
     </div>
   </transition>
 </template>
 
 <script>
-import { throttle } from '@lib/min-throttle.js';
-import { addCaptureScroll } from '@lib/scroll-listener'
-const cubic = value => Math.pow(value, 3);
-const easeInOutCubic = value => value < 0.5
-  ? cubic(value * 2) / 2
-  : 1 - cubic((1 - value) * 2) / 2;
+import { throttle } from '@libs/min-throttle.js';
+import { addCaptureScroll } from '@libs/scroll-listener'
+import { inOutCubic } from '@libs/easing'
 
 export default {
   name: 'BackTop',
@@ -31,7 +28,10 @@ export default {
       type: Number,
       default: 200
     },
-    target: [String],
+    target: {
+      type: String,
+      default: ''
+    },
     right: {
       type: Number,
       default: 40
@@ -61,6 +61,9 @@ export default {
     this.throttledScrollHandler = throttle(this.onScroll, 300);
     this.removeCaptureScroll = addCaptureScroll(this.throttledScrollHandler);
   },
+  beforeDestroy () {
+    this.removeCaptureScroll && this.removeCaptureScroll()
+  },
   methods: {
     init () {
       this.container = document;
@@ -87,11 +90,11 @@ export default {
       const el = this.el;
       const beginTime = Date.now();
       const beginValue = el.scrollTop;
-      const rAF = window.requestAnimationFrame || (func => setTimeout(func, 16));
+      const rAF = window.requestAnimationFrame;
       const frameFunc = () => {
         const progress = (Date.now() - beginTime) / 500;
         if (progress < 1) {
-          el.scrollTop = beginValue * (1 - easeInOutCubic(progress));
+          el.scrollTop = beginValue * (1 - inOutCubic(progress));
           rAF(frameFunc);
         } else {
           el.scrollTop = 0;
@@ -99,9 +102,6 @@ export default {
       };
       rAF(frameFunc);
     }
-  },
-  beforeDestroy () {
-    this.removeCaptureScroll && this.removeCaptureScroll()
   }
 };
 </script>

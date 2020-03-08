@@ -1,5 +1,5 @@
 <template>
-  <div class="layout-a">
+  <div class="layout-a smooth-scroll">
     <div class="aside">
       <SidePanel />
     </div>
@@ -32,7 +32,7 @@
         open-group="group1"
       >
         <button class="button">
-          <span class="icon is-small">
+          <span class="icon is-small has-text-warning">
             <v-icon name="camera" />
           </span>
         </button>
@@ -116,7 +116,6 @@ $horizon-margin: 0px !default;
 
 .layout-a {
   position: relative;
-  overflow: auto;
   height: 100%;
   .header {
     box-shadow: 0 2px 2px rgba(0, 0, 0, 0.075);
@@ -131,7 +130,6 @@ $horizon-margin: 0px !default;
     left: calc(#{$horizon-margin} / 2);
     top: calc(#{$nav-height} + #{$vertical-margin} / 2);
     bottom: calc(#{$vertical-margin} / 2);
-    overflow: auto;
     &:after {
       content: '';
       position: absolute;

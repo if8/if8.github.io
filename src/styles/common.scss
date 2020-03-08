@@ -1,6 +1,7 @@
 @import "./var.scss";
 @import "./transition.scss";
 
-* {
+.smooth-scroll {
   scroll-behavior: smooth;
+  overflow: auto;
 }

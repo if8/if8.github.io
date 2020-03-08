@@ -1,11 +1,17 @@
 <template>
   <nav class="side-panel">
-    <p class="panel-heading">Repositories</p>
+    <p class="panel-heading">
+      Repositories
+    </p>
     <div class="panel-block">
       <p class="control has-icons-left">
-        <input class="input" placeholder="Search" type="text" />
+        <input
+          class="input"
+          placeholder="Search"
+          type="text"
+        >
         <span class="icon is-left">
-          <i aria-hidden="true" class="fas fa-search"></i>
+          <v-icon name="camera" />
         </span>
       </p>
     </div>
@@ -18,53 +24,55 @@
     </p>
     <a class="panel-block is-active">
       <span class="panel-icon">
-        <i aria-hidden="true" class="fas fa-book"></i>
+        <v-icon name="camera" />
       </span>
       bulma
     </a>
     <a class="panel-block">
       <span class="panel-icon">
-        <i aria-hidden="true" class="fas fa-book"></i>
+        <v-icon name="camera" />
       </span>
       marksheet
     </a>
     <a class="panel-block">
       <span class="panel-icon">
-        <i aria-hidden="true" class="fas fa-book"></i>
+        <v-icon name="camera" />
       </span>
       minireset.css
     </a>
     <a class="panel-block">
       <span class="panel-icon">
-        <i aria-hidden="true" class="fas fa-book"></i>
+        <v-icon name="camera" />
       </span>
       jgthms.github.io
     </a>
     <a class="panel-block">
       <span class="panel-icon">
-        <i aria-hidden="true" class="fas fa-code-branch"></i>
+        <v-icon name="camera" />
       </span>
       daniellowtw/infboard
     </a>
     <a class="panel-block">
       <span class="panel-icon">
-        <i aria-hidden="true" class="fas fa-code-branch"></i>
+        <v-icon name="camera" />
       </span>
       mojs
     </a>
     <label class="panel-block">
-      <input type="checkbox" />
+      <input type="checkbox">
       remember me
     </label>
     <div class="panel-block">
-      <button class="button is-link is-outlined is-fullwidth">Reset all filters</button>
+      <button class="button is-link is-outlined is-fullwidth">
+        Reset all filters
+      </button>
     </div>
   </nav>
 </template>
 
 <script>
 export default {
-  name: 'side-panel'
+  name: 'SidePanel'
 }
 </script>
 

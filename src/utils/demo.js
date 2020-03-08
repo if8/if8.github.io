@@ -1,4 +1,4 @@
-import { AsyncQueue } from "@lib/AsyncQueue"
+import { AsyncQueue } from "@libs/AsyncQueue"
 
 export function genAsyncQueue(params) {
   let channel = new AsyncQueue()

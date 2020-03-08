@@ -3,9 +3,9 @@
     <div class="main-left">
       <router-view name="left" />
     </div>
-    <div class="main-right">
-      <div class="test"></div>
-      <router-view />
+    <div class="split" />
+    <div class="main-right smooth-scroll">
+      <div style="height: 3000px;" />
     </div>
     <BackTop target=".layout-b .main-right" />
   </div>
@@ -14,10 +14,14 @@
 <script>
 import BackTop from '@components/BackTop.vue'
 export default {
-  name: 'layout-b',
+  name: 'LayoutB',
   components: {
     BackTop
   },
+  data () {
+    return {
+    }
+  }
 }
 </script>
 
@@ -28,10 +32,10 @@ export default {
   .main-left,
   .main-right {
     flex: 1 1 0%;
-    overflow: auto;
   }
-  .test {
-    height: 3000px;
+  .split {
+    width: 2px;
+    background: rgba(0, 0, 0, 0.4);
   }
 }
 </style>
