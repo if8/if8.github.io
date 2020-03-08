@@ -1,10 +1,13 @@
 <template>
   <div class="layout-a">
     <div class="aside">
-      <SidePanel></SidePanel>
+      <SidePanel />
     </div>
     <div class="main">
-      <nav aria-label="breadcrumbs" class="header breadcrumb">
+      <nav
+        aria-label="breadcrumbs"
+        class="header breadcrumb"
+      >
         <ul>
           <li>
             <a href="#">Bulma</a>
@@ -16,40 +19,74 @@
             <a href="#">Components</a>
           </li>
           <li class="is-active">
-            <a aria-current="page" href="#">Breadcrumb</a>
+            <a
+              aria-current="page"
+              href="#"
+            >Breadcrumb</a>
           </li>
         </ul>
       </nav>
-      
-      <v-popover :auto-hide="false" open-group="group1">
+
+      <v-popover
+        :auto-hide="false"
+        open-group="group1"
+      >
         <button class="button">
           <span class="icon is-small">
             <v-icon name="camera" />
           </span>
         </button>
+        <div slot="popover">
+          立刻接受了定金付老师看见的分离技术多了几分
+        </div>
       </v-popover>
 
       <div class="dropdown is-active">
         <div class="dropdown-trigger">
-          <button aria-controls="dropdown-menu" aria-haspopup="true" class="button">
+          <button
+            aria-controls="dropdown-menu"
+            aria-haspopup="true"
+            class="button"
+          >
             <span>Dropdown button</span>
             <span class="icon is-small">
               <v-icon name="camera" />
             </span>
           </button>
         </div>
-        <div class="dropdown-menu" id="dropdown-menu" role="menu">
+        <div
+          id="dropdown-menu"
+          class="dropdown-menu"
+          role="menu"
+        >
           <div class="dropdown-content">
-            <a class="dropdown-item" href="#">Dropdown item</a>
+            <a
+              class="dropdown-item"
+              href="#"
+            >Dropdown item</a>
             <a class="dropdown-item">Other dropdown item</a>
-            <a class="dropdown-item is-active" href="#">Active dropdown item</a>
-            <a class="dropdown-item" href="#">Other dropdown item</a>
-            <hr class="dropdown-divider" />
-            <a class="dropdown-item" href="#">With a divider</a>
+            <a
+              class="dropdown-item is-active"
+              href="#"
+            >Active dropdown item</a>
+            <a
+              class="dropdown-item"
+              href="#"
+            >Other dropdown item</a>
+            <hr class="dropdown-divider">
+            <a
+              class="dropdown-item"
+              href="#"
+            >With a divider</a>
           </div>
         </div>
       </div>
+
       <MessageBox />
+
+      <div class="why">
+        sdkj
+      </div>
       <router-view />
     </div>
     <BackTop target=".layout-a" />
