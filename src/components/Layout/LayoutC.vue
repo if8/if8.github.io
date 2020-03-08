@@ -54,19 +54,7 @@ export default {
     padding: 0 24px;
     position: sticky;
     top: 0;
-    background: rgba(255,255,255,0.6);
-    &:before {
-      content: '';
-      position: absolute;
-      opacity: 0.6;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      z-index: -1;
-      overflow: visible;
-      background: linear-gradient(45deg, #0aabc7, #bb09d3);
-    }
+    background: linear-gradient(45deg, hsla(189, 91, 51, 0.6), hsla(293, 92, 55, 0.6));
   }
 }
 @keyframes dividerAnimation1 {
