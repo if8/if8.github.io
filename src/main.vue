@@ -41,5 +41,6 @@ body,
 </style>
 <style lang="scss" scoped>
 .app {
+  overflow: auto;
 }
 </style>
