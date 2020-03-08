@@ -54,7 +54,8 @@ export default {
     padding: 0 24px;
     position: sticky;
     top: 0;
-    background: linear-gradient(45deg, hsla(189, 91, 51, 0.6), hsla(293, 92, 55, 0.6));
+    backdrop-filter: blur(5px);
+    background: linear-gradient(45deg, hsla(201, 56, 65, 0.7), hsla(291, 78, 57.5, 0.7));
   }
 }
 @keyframes dividerAnimation1 {

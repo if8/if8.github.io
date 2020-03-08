@@ -1,42 +1,44 @@
 export function throttle(
   callback,
-  wait,
+  wait = 0,
   { start = true, middle = true, once = false } = {}
 ) {
   let last = 0
   let timer
   let cancelled = false
+
   const fn = function(...args) {
-    if (cancelled) return
+    if (cancelled) {
+      return
+    }
+
     const delta = Date.now() - last
-    last = Date.now()
+
     if (start) {
       start = false
-      callback(...args)
-      if (once) fn.cancel()
-    } else if ((middle && delta < wait) || !middle) {
+      run(...args)
+    } else if (!middle || delta < wait) {
       clearTimeout(timer)
-      timer = setTimeout(
-        function() {
-          last = Date.now()
-          callback(...args)
-          if (once) fn.cancel()
-        },
-        !middle ? wait : wait - delta
-      )
+      timer = setTimeout(run, !middle ? wait : wait - delta, ...args)
     }
   }
+
   fn.cancel = function() {
     clearTimeout(timer)
     cancelled = true
   }
+
+  function run(...args) {
+    last = Date.now()
+    callback(...args)
+    if (once) {
+      fn.cancel()
+    }
+  }
+
   return fn
 }
 
-export function debounce(
-  callback,
-  wait = 0,
-  { start = false, middle = false, once = false } = {}
-) {
-  return throttle(callback, wait, { start, middle, once })
+export function debounce(callback, wait = 0) {
+  return throttle(callback, wait, { start: false, middle: false, once: false })
 }
