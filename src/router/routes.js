@@ -60,7 +60,7 @@ export const constantRouterArr = [
     name: "home",
     component: Home,
     meta: {
-      layout: 'LayoutB'
+      layout: 'LayoutD'
     }
   },
   {

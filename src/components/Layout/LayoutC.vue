@@ -1,10 +1,11 @@
 <template>
   <div class="layout-c">
-    <TopNav />
+    <TopNav :class="{'has-scroll': hasScroll}" />
     <div class="is-gradient">
       <div class="header py-100 text-center">
         <h1 class="title">
-          Your Stars
+          Y
+          our Stars
         </h1>
         <p>Browse your starred repositories and topics</p>
       </div>
@@ -31,7 +32,11 @@
     <router-view name="left" />
     <div style="height:2000px;" />
     <Pagination style="width:100%; " />
-    <BackTop target=".layout-c" />
+    <div class="footer-svg" />
+    <BackTop
+      target=".app"
+      @scroll="switchHeaderClass"
+    />
   </div>
 </template>
 
@@ -46,6 +51,16 @@ export default {
     Pagination,
     TopNav
   },
+  data () {
+    return {
+      hasScroll: false
+    }
+  },
+  methods: {
+    switchHeaderClass (scrollTop) {
+      this.hasScroll = scrollTop > 0
+    }
+  }
 }
 </script>
 <style lang="scss">
@@ -54,8 +69,29 @@ export default {
     padding: 0 24px;
     position: sticky;
     top: 0;
-    backdrop-filter: blur(5px);
-    background: linear-gradient(45deg, hsla(201, 56, 65, 0.7), hsla(291, 78, 57.5, 0.7));
+    background: none;
+    backdrop-filter: blur(8px);
+
+    &:before {
+      content: '';
+      opacity: 0;
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 0;
+      bottom: 0;
+      z-index: -1;
+      overflow: visible;
+      background: linear-gradient(45deg, hsl(201, 56, 65), hsl(291, 78, 57.5));
+      transition-duration: 0.25s;
+      transition-property: opacity;
+      transition-timing-function: ease-in-out;
+    }
+
+    &.has-scroll:before {
+      content: '';
+      opacity: 0.7;
+    }
   }
 }
 @keyframes dividerAnimation1 {
@@ -91,6 +127,64 @@ export default {
     transform: translate(-8%, 10%);
   }
 }
+
+.footer-svg {
+  position: relative;
+  min-height: 30vw;
+  background-color: rgb(118, 218, 255);
+  overflow: hidden;
+
+  &:before,
+  &:after {
+    content: '';
+    left: 50%;
+    position: absolute;
+    min-width: 400vw;
+    min-height: 400vw;
+    background-color: #fff;
+    animation-duration: 15s;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+  }
+
+  &:before {
+    bottom: 12vw;
+    border-radius: 45% 46% 45.5% 46%;
+    animation-name: rotate;
+
+  }
+
+  &:after {
+    bottom: 5vw;
+    opacity: 0.5;
+    border-radius: 47% 47.5% 48% 47.5%;
+    animation-name: rotate2;
+    transform: rotateZ(45deg) scale(0.96);
+  }
+}
+
+@keyframes rotate {
+  0% {
+    transform: translate(-50%, 0) rotateZ(0deg);
+  }
+  50% {
+    transform: translate(-50%, -2%) rotateZ(180deg);
+  }
+  100% {
+    transform: translate(-50%, 0%) rotateZ(360deg);
+  }
+}
+@keyframes rotate2 {
+  0% {
+    transform: translate(-50%, 0) rotateZ(45deg) scale(0.96);
+  }
+  50% {
+    transform: translate(-50%, -2%) rotateZ(225deg) scale(0.96);
+  }
+  100% {
+    transform: translate(-50%, 0%) rotateZ(405deg) scale(0.96);
+  }
+}
 </style>
 
 <style lang="scss" scoped>
@@ -101,6 +195,7 @@ export default {
     background-color: transparent !important;
     background: linear-gradient(45deg, #0aabc7, #bb09d3);
   }
+
   .cloud {
     transform: rotate(180deg) scale(2, 1);
     margin-top: 1px;
@@ -121,7 +216,7 @@ export default {
       animation: dividerAnimation2 120s cubic-bezier(0.1, 0, 0.9, 1) infinite;
     }
     .step3 {
-      opacity: 0.95;
+      opacity: 0.96;
       fill: #fff;
       animation: dividerAnimation1 120s cubic-bezier(0.1, 0, 0.9, 1) infinite;
     }

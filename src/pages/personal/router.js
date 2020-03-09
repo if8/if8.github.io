@@ -1,5 +1,6 @@
 import PersonalIndex from "./index.vue"
 import PersonalInfo from "./views/info.vue"
+import PersonalImage from "./views/image.vue"
 
 export default [
   {
@@ -14,6 +15,14 @@ export default [
         path: "info",
         name: "personal-info",
         component: PersonalInfo
+      },
+      {
+        path: "image",
+        name: "personal-image",
+        component: PersonalImage,
+        meta: {
+          layout: `LayoutD`
+        },
       }
     ]
   }

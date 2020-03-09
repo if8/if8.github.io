@@ -1,7 +1,7 @@
 <template>
   <transition name="fade-in">
     <div
-      v-if="visible"
+      v-show="visible"
       :style="{
         'right': styleRight,
         'bottom': styleBottom
@@ -61,7 +61,7 @@ export default {
   },
   mounted () {
     this.init();
-    this.throttledScrollHandler = throttle(this.onScroll, 300);
+    this.throttledScrollHandler = throttle(this.onScroll);
     this.removeCaptureScroll = addCaptureScroll(this.throttledScrollHandler);
   },
   beforeDestroy () {
@@ -82,6 +82,7 @@ export default {
     onScroll (event) {
       if (this.container === event.target) {
         const scrollTop = this.el.scrollTop;
+        this.$emit('scroll', scrollTop)
         this.visible = scrollTop >= this.visibilityHeight;
       }
     },

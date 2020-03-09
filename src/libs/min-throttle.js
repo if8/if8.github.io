@@ -1,6 +1,6 @@
 export function throttle(
   callback,
-  wait = 0,
+  wait = 200,
   { start = true, middle = true, once = false } = {}
 ) {
   let last = 0
@@ -14,7 +14,7 @@ export function throttle(
 
     const delta = Date.now() - last
 
-    if (start) {
+    if (start || delta >= wait) {
       start = false
       run(...args)
     } else if (!middle || delta < wait) {
@@ -39,6 +39,6 @@ export function throttle(
   return fn
 }
 
-export function debounce(callback, wait = 0) {
+export function debounce(callback, wait = 200) {
   return throttle(callback, wait, { start: false, middle: false, once: false })
 }
