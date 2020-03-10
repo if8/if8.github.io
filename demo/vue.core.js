@@ -35,10 +35,31 @@ class Watcher {
 class Vue {
   constructor (option) {
     let data = option.data()
-    let renderFun = option.render
+    let depMethods = option.depMethods
+
     Object.keys(data).forEach(key => {
       observer(this, key, data[key])
     })
-    new Watcher(this, renderFun)
+    Object.keys(depMethods).forEach(key => {
+      new Watcher(this, depMethods[key])
+    })
   }
 }
+
+/// <p class="text"></p>
+
+let vm = new Vue({
+  data () {
+    return { msg: 1 }
+  },
+  depMethods: {
+    computedA () {
+      return this.msg + 1
+    },
+    render () {
+      document.querySelector('.text').innerText = this.msg
+    }
+  }
+})
+
+vm.msg = 333
