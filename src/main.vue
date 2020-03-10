@@ -90,6 +90,7 @@ export default {
 html,
 body,
 .app {
+  overflow-y: initial;
   height: 100%;
 }
 </style>

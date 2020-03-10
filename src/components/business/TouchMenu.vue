@@ -7,7 +7,7 @@
       pack="fas"
       icon="apple-alt"
       size="is-medium"
-      @click="clickedMenu"
+      @click.native="clickedMenu"
     />
 
     <b-icon
@@ -17,7 +17,7 @@
       pack="fas"
       :icon="icon"
       size="is-medium"
-      @click="clickedMenu"
+      @click.native="clickedMenu"
     />
   </nav>
 </template>
@@ -51,7 +51,7 @@ export default {
 $distance: 105px;
 
 .touch-menu {
-  position: absolute;
+  position: fixed;
   z-index: 1;
   width: 66px;
   height: 66px;
