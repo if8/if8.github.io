@@ -3,11 +3,13 @@
     class="app"
   >
     <!-- <AutoScroll /> -->
-    <TouchMenu
-      :style="`transform: translate3d(${menuPosition.x}px, ${menuPosition.y}px, 0px);`"
-      @mousedown.native="onMouseDown"
-      @mouseup.native.capture="onMouseUp"
-    />
+    <div @mouseup.capture="onMouseUp">
+      <TouchMenu
+        :style="`transform: translate3d(${menuPosition.x}px, ${menuPosition.y}px, 0px);`"
+        @mousedown.native="onMouseDown"
+      />
+    </div>
+
     <component :is="layout" />
   </div>
 </template>
@@ -29,7 +31,7 @@ export default {
     let isMouseDown = ref(false);
     let isDrag = ref(false);
 
-    let menuPosition = reactive({ x: 40, y: 40 });
+    let menuPosition = reactive({ x: 240, y: 240 });
 
     let onMouseDown = () => {
       isMouseDown.value = true;
@@ -44,15 +46,11 @@ export default {
 
     let { x, y } = useMousePosition();
 
-    watch([x, y, isMouseDown], ([preX, preY, preIsMouseDown], [x, y, isMouseDown] = []) => {
-      if (isMouseDown) {
-        menuPosition.x = x - 40
-        menuPosition.y = y - 40
-      }
-    })
-    watch([x, y], () => {
+    watch([x, y], ([x, y]) => {
       if(isMouseDown.value) {
         isDrag.value = true
+        menuPosition.x = x - 40
+        menuPosition.y = y - 40
       }
     })
 

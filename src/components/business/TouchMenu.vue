@@ -1,129 +1,89 @@
 <template>
   <nav class="touch-menu">
-    <input
-      id="menu-open"
-      type="checkbox"
-      href="#"
-      class="menu-open"
-      name="menu-open"
-    >
-    <label
-      class="menu-open-button"
-      for="menu-open"
-    >
-      <span class="hamburger hamburger-1" />
-      <span class="hamburger hamburger-2" />
-      <span class="hamburger hamburger-3" />
-    </label>
+    <div class="area" />
 
-    <a
-      href="#"
+    <b-icon
+      class="menu-open-button"
+      pack="fas"
+      icon="apple-alt"
+      size="is-medium"
+      @click="clickedMenu"
+    />
+
+    <b-icon
+      v-for="icon in menuItemList"
+      :key="icon"
       class="menu-item"
-    >
-      <i class="fa fa-bar-chart" />
-    </a>
-    <a
-      href="#"
-      class="menu-item"
-    >
-      <i class="fa fa-plus" />
-    </a>
-    <a
-      href="#"
-      class="menu-item"
-    >
-      <i class="fa fa-heart" />
-    </a>
-    <a
-      href="#"
-      class="menu-item"
-    >
-      <i class="fa fa-envelope" />
-    </a>
-    <a
-      href="#"
-      class="menu-item"
-    >
-      <i class="fa fa-cog" />
-    </a>
-    <a
-      href="#"
-      class="menu-item"
-    >
-      <i class="fa fa-ellipsis-h" />
-    </a>
+      pack="fas"
+      :icon="icon"
+      size="is-medium"
+      @click="clickedMenu"
+    />
   </nav>
 </template>
 
 <script>
 export default {
   name: 'TouchMenu',
+  data () {
+    return {
+      menuItemList: [
+        'print',
+        'envelope-open-text',
+        'address-book',
+        'calendar-plus',
+        'balance-scale',
+        'chart-pie',
+        'anchor',
+        'air-freshener'
+      ]
+    }
+  },
+  methods: {
+    clickedMenu () {
+      console.log(Date.now())
+    }
+  }
 }
 </script>
 
 <style lang="scss" scoped>
+$distance: 105px;
+
 .touch-menu {
   position: absolute;
   z-index: 1;
-  width: 80px;
-  height: 80px;
-
-  .menu-item,
-  .menu-open-button {
-    background: #e91e63;
-    border-radius: 100%;
+  width: 66px;
+  height: 66px;
+  .area {
     width: 100%;
     height: 100%;
     position: absolute;
+    z-index: -1;
+    left: 50%;
+    top: 50%;
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  .menu-item,
+  .menu-open-button {
+    cursor: pointer;
+    width: 100%;
+    height: 100%;
+    background: #e91e63;
+    border-radius: 100%;
+    position: absolute;
     color: white;
     text-align: center;
-    line-height: 80px;
-    transform: translate3d(0, 0, 0);
-    transition: transform ease-out 200ms;
+    line-height: 66px;
   }
 
-  .menu-open {
-    display: none;
-  }
-
-  .hamburger {
-    width: 25px;
-    height: 3px;
-    background: white;
-    display: block;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    margin-left: -12.5px;
-    margin-top: -1.5px;
-    transition: transform 200ms;
-  }
-
-  .hamburger-1 {
-    transform: translate3d(0, -8px, 0);
-  }
-
-  .hamburger-2 {
-    transform: translate3d(0, 0, 0);
-  }
-
-  .hamburger-3 {
-    transform: translate3d(0, 8px, 0);
-  }
-
-  .menu-open:checked + .menu-open-button .hamburger-1 {
-    transform: translate3d(0, 0, 0) rotate(45deg);
-  }
-  .menu-open:checked + .menu-open-button .hamburger-2 {
-    transform: translate3d(0, 0, 0) scale(0.1, 1);
-  }
-  .menu-open:checked + .menu-open-button .hamburger-3 {
-    transform: translate3d(0, 0, 0) rotate(-45deg);
-  }
-
-  .menu-item:hover {
-    background: white;
-    color: #e91e63;
+  .menu-item:hover, .menu-open-button:hover {
+    opacity: 0.6;
+    transition-duration: 300ms;
+    transition-property: opacity;
+    transition-timing-function: ease-in-out;
   }
 
   .menu-open-button {
@@ -131,49 +91,52 @@ export default {
     transition-timing-function: cubic-bezier(0.175, 0.885, 0.32, 1.275);
     transition-duration: 400ms;
     transform: scale(1.1, 1.1) translate3d(0, 0, 0);
-    cursor: pointer;
   }
 
-  .menu-open-button:hover {
-    transform: scale(1.2, 1.2) translate3d(0, 0, 0);
-  }
+  &:hover .area,
+  .area:hover {
+    min-width: calc(100px * 2 + 66px);
+    min-height: calc(100px * 2 + 66px);
 
-  .menu-open:checked + .menu-open-button {
-    transition-timing-function: linear;
-    transition-duration: 200ms;
-    transform: scale(0.8, 0.8) translate3d(0, 0, 0);
-  }
+    ~ .menu-open-button {
+      transform: scale(0.9, 0.9) translate3d(0, 0, 0);
+    }
 
-  .menu-open:checked ~ .menu-item {
-    transition-timing-function: cubic-bezier(0.935, 0, 0.34, 1.33);
-  }
-  .menu-open:checked ~ .menu-item:nth-child(3) {
-    transition-duration: 180ms;
-    transform: translate3d(0.08361px, -104.99997px, 0);
-  }
-  .menu-open:checked ~ .menu-item:nth-child(4) {
-    transition-duration: 280ms;
-    transform: translate3d(90.9466px, -52.47586px, 0);
-  }
-  .menu-open:checked ~ .menu-item:nth-child(5) {
-    transition-duration: 380ms;
-    transform: translate3d(90.9466px, 52.47586px, 0);
-  }
-  .menu-open:checked ~ .menu-item:nth-child(6) {
-    transition-duration: 480ms;
-    transform: translate3d(0.08361px, 104.99997px, 0);
-  }
-  .menu-open:checked ~ .menu-item:nth-child(7) {
-    transition-duration: 580ms;
-    transform: translate3d(-90.86291px, 52.62064px, 0);
-  }
-  .menu-open:checked ~ .menu-item:nth-child(8) {
-    transition-duration: 680ms;
-    transform: translate3d(-91.03006px, -52.33095px, 0);
-  }
-  .menu-open:checked ~ .menu-item:nth-child(9) {
-    transition-duration: 780ms;
-    transform: translate3d(-0.25084px, -104.9997px, 0);
+    ~ .menu-item {
+      transition-timing-function: cubic-bezier(0.935, 0, 0.34, 1.33);
+    }
+    ~ .menu-item:nth-child(3) {
+      transition-duration: 180ms;
+      transform: translate3d(calc(100px * 0.707), calc(-100px * 0.707), 0);
+    }
+    ~ .menu-item:nth-child(4) {
+      transition-duration: 280ms;
+      transform: translate3d(100px, 0, 0);
+    }
+    ~ .menu-item:nth-child(5) {
+      transition-duration: 380ms;
+      transform: translate3d(calc(100px * 0.707), calc(100px * 0.707), 0);
+    }
+    ~ .menu-item:nth-child(6) {
+      transition-duration: 480ms;
+      transform: translate3d(0, 100px, 0);
+    }
+    ~ .menu-item:nth-child(7) {
+      transition-duration: 580ms;
+      transform: translate3d(calc(-100px * 0.707), calc(100px * 0.707), 0);
+    }
+    ~ .menu-item:nth-child(8) {
+      transition-duration: 680ms;
+      transform: translate3d(-100px, 0, 0);
+    }
+    ~ .menu-item:nth-child(9) {
+      transition-duration: 780ms;
+      transform: translate3d(calc(-100px * 0.707), calc(-100px * 0.707), 0);
+    }
+    ~ .menu-item:nth-child(10) {
+      transition-duration: 880ms;
+      transform: translate3d(0, -100px, 0);
+    }
   }
 }
 </style>
