@@ -18,6 +18,7 @@ module.exports = (env, argv) => {
     resolve: {
       alias: {
         "@": path.resolve(__dirname, "./src"),
+        "@hooks": path.resolve(__dirname, "./src/hooks"),
         "@libs": path.resolve(__dirname, "./src/libs"),
         "@utils": path.resolve(__dirname, "./src/utils"),
         "@pages": path.resolve(__dirname, "./src/pages"),

@@ -1,18 +1,72 @@
 <template>
-  <div class="app">
+  <div
+    class="app"
+  >
     <!-- <AutoScroll /> -->
-    <component
-      :is="layout"
+    <TouchMenu
+      :style="`transform: translate3d(${menuPosition.x}px, ${menuPosition.y}px, 0px);`"
+      @mousedown.native="onMouseDown"
+      @mouseup.native.capture="onMouseUp"
     />
+    <component :is="layout" />
   </div>
 </template>
 
 <script>
 import AutoScroll from '../demo/AutoScroll.vue'
+import TouchMenu from '@components/business/TouchMenu.vue'
+import { useMousePosition } from '@hooks/mouse-position.js'
+import { ref, reactive, watch } from '@vue/composition-api';
+
+
 export default {
   name: `main`,
   components: {
-    AutoScroll
+    AutoScroll,
+    TouchMenu
+  },
+  setup () {
+    let isMouseDown = ref(false);
+    let isDrag = ref(false);
+
+    let menuPosition = reactive({ x: 40, y: 40 });
+
+    let onMouseDown = () => {
+      isMouseDown.value = true;
+    }
+    let onMouseUp = (e) => {
+      if (isDrag.value) {
+        e.preventDefault()
+      }
+      isDrag.value = false
+      isMouseDown.value = false;
+    }
+
+    let { x, y } = useMousePosition();
+
+    watch([x, y, isMouseDown], ([preX, preY, preIsMouseDown], [x, y, isMouseDown] = []) => {
+      if (isMouseDown) {
+        menuPosition.x = x - 40
+        menuPosition.y = y - 40
+      }
+    })
+    watch([x, y], () => {
+      if(isMouseDown.value) {
+        isDrag.value = true
+      }
+    })
+
+    return {
+      x,
+      y,
+      menuPosition,
+      onMouseDown,
+      onMouseUp
+    };
+  },
+  data () {
+    return {
+    }
   },
   computed: {
     layout () {
@@ -29,6 +83,8 @@ export default {
       return 'layout-c'
     }
   },
+  methods: {
+  },
 }
 </script>
 
@@ -39,8 +95,5 @@ body,
   height: 100%;
 }
 </style>
-<style lang="scss" scoped>
-.app {
-  overflow: auto;
-}
+<style lang="scss">
 </style>

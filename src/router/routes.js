@@ -2,7 +2,7 @@ import { promiseInvert } from "@utils/index.js"
 import CompError from "@components/CompError.vue"
 import CompLoading from "@components/CompLoading.vue"
 import NotFound from "@components/NotFound.vue"
-import Home from "@pages/home/index.vue"
+import SiteIntro from "@components/business/SiteIntro.vue"
 import ShowIcons from "@components/ShowIcons.vue"
 
 export function lazyLoadView(AsyncView) {
@@ -58,9 +58,9 @@ export const constantRouterArr = [
   {
     path: "/",
     name: "home",
-    component: Home,
+    component: SiteIntro,
     meta: {
-      layout: 'LayoutD'
+      layout: 'LayoutC'
     }
   },
   {

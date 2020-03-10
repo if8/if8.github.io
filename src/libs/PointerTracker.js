@@ -1,6 +1,5 @@
 class Pointer {
   constructor(nativePointer) {
-    /** Unique ID for this pointer */
     this.id = -1
     this.nativePointer = nativePointer
     this.pageX = nativePointer.pageX
@@ -10,13 +9,10 @@ class Pointer {
     if (self.Touch && nativePointer instanceof Touch) {
       this.id = nativePointer.identifier
     } else if (isPointerEvent(nativePointer)) {
-      // is PointerEvent
       this.id = nativePointer.pointerId
     }
   }
-  /**
-   * Returns an expanded set of Pointers for high-resolution inputs.
-   */
+  // Returns an expanded set of Pointers for high-resolution inputs.
   getCoalesced() {
     if ("getCoalescedEvents" in this.nativePointer) {
       return this.nativePointer.getCoalescedEvents().map(p => new Pointer(p))
@@ -24,36 +20,19 @@ class Pointer {
     return [this]
   }
 }
+
 const isPointerEvent = event =>
   self.PointerEvent && event instanceof PointerEvent
 const noop = () => {}
-/**
- * Track pointers across a particular element
- */
+
 class PointerTracker {
-  /**
-   * Track pointers across a particular element
-   *
-   * @param element Element to monitor.
-   * @param callbacks
-   */
   constructor(_element, callbacks) {
     this._element = _element
-    /**
-     * State of the tracked pointers when they were pressed/touched.
-     */
+
     this.startPointers = []
-    /**
-     * Latest state of the tracked pointers. Contains the same number
-     * of pointers, and in the same order as this.startPointers.
-     */
+
     this.currentPointers = []
-    /**
-     * Listener for mouse/pointer starts.
-     *
-     * @param event This will only be a MouseEvent if the browser doesn't support
-     * pointer events.
-     */
+
     this._pointerStart = event => {
       if (event.button !== 0 /* Left */) return
       if (!this._triggerPointerStart(new Pointer(event), event)) return
@@ -143,11 +122,12 @@ class PointerTracker {
         this._triggerPointerEnd(new Pointer(touch), event)
       }
     }
+
     const { start = () => true, move = noop, end = noop } = callbacks
     this._startCallback = start
     this._moveCallback = move
     this._endCallback = end
-    // Add listeners
+
     if (self.PointerEvent) {
       this._element.addEventListener("pointerdown", this._pointerStart)
     } else {

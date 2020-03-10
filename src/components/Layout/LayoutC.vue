@@ -34,7 +34,6 @@
     <Pagination style="width:100%; " />
     <div class="footer-svg" />
     <BackTop
-      target=".app"
       @scroll="switchHeaderClass"
     />
   </div>
@@ -105,7 +104,7 @@ export default {
     transform: translate(-25%);
   }
 }
-@keyframes dividerAnimation2-data-v-e7979c66 {
+@keyframes dividerAnimation2 {
   0% {
     transform: translate(18%, 5%) scaleX(1.25);
   }
