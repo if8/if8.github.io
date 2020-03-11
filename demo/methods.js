@@ -8,6 +8,24 @@ function create (Con, ...args) {
   return result instanceof Object ? result : this.obj;
 }
 
+// 多层嵌套数组去重排序
+function flat (arr) {
+  function toFlat (acc, current) {
+    if (Array.isArray(current)) {
+      current.forEach(item => {
+        toFlat(acc, item)
+      })
+    } else {
+      if (!acc.includes(current)) {
+        acc.push(current)
+      }
+    }
+    return acc
+  }
+
+  return arr.reduce(toFlat, []).sort((value1, value2) => value1 - value2)
+}
+
 
 Array.myIsArray = function (o) {
   return Object.prototype.toString.call(Object(o)) === '[object Array]';
