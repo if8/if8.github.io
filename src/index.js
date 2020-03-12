@@ -7,7 +7,6 @@ import initLayout from '@components/Layout/index.js'
 import initRouter from './router/index.js'
 import initStore from './store/index.js'
 import VueCompositionApi from '@vue/composition-api'
-import VTooltip from 'v-tooltip'
 import Buefy from 'buefy'
 import 'buefy/dist/buefy.css'
 import '@styles/common.scss'
@@ -24,7 +23,6 @@ Vue.use(Meta, {
   attribute: 'data-vue-meta', // the attribute name vue-meta adds to the tags it observes
   tagIDKeyName: 'vmid' // the property name that vue-meta uses to determine whether to overwrite or append a tag
 })
-Vue.use(VTooltip)
 Vue.use(Buefy)
 
 window.App = new Vue({

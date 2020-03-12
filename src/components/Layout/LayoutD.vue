@@ -1,23 +1,14 @@
 <template>
   <div class="layout-d">
     <b-carousel :indicator-inside="false">
-      <b-carousel-item
-        v-for="(item, i) in 6"
-        :key="i"
-      >
+      <b-carousel-item v-for="(item, i) in 6" :key="i">
         <span class="image">
-          <img :src="getImgUrl(i)">
+          <img :src="getImgUrl(i)" />
         </span>
       </b-carousel-item>
-      <template
-        slot="indicators"
-        slot-scope="props"
-      >
+      <template slot="indicators" slot-scope="props">
         <span class="al image">
-          <img
-            :src="getImgUrl(props.i)"
-            :title="props.i"
-          >
+          <img :src="getImgUrl(props.i)" :title="props.i" />
         </span>
       </template>
     </b-carousel>
@@ -29,14 +20,14 @@
 export default {
   name: 'LayoutD',
   methods: {
-    getImgUrl (value) {
+    getImgUrl(value) {
       return `https://picsum.photos/id/43${value}/1230/500`
     }
   }
 }
 </script>
 
-<style>
+<style lang="scss">
 .is-active .al img {
   filter: grayscale(0%);
 }

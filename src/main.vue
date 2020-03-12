@@ -1,11 +1,11 @@
 <template>
-  <div
-    class="app"
-  >
+  <div class="app">
     <!-- <AutoScroll /> -->
     <div @mouseup.capture="onMouseUp">
       <TouchMenu
-        :style="`transform: translate3d(${menuPosition.x}px, ${menuPosition.y}px, 0px);`"
+        :style="
+          `transform: translate3d(${menuPosition.x}px, ${menuPosition.y}px, 0px);`
+        "
         @mousedown.native="onMouseDown"
       />
     </div>
@@ -18,8 +18,7 @@
 import AutoScroll from '../demo/AutoScroll.vue'
 import TouchMenu from '@components/business/TouchMenu.vue'
 import { useMousePosition } from '@hooks/mouse-position.js'
-import { ref, reactive, watch } from '@vue/composition-api';
-
+import { ref, reactive, watch } from '@vue/composition-api'
 
 export default {
   name: `main`,
@@ -27,27 +26,27 @@ export default {
     AutoScroll,
     TouchMenu
   },
-  setup () {
-    let isMouseDown = ref(false);
-    let isDrag = ref(false);
+  setup() {
+    let isMouseDown = ref(false)
+    let isDrag = ref(false)
 
-    let menuPosition = reactive({ x: 240, y: 240 });
+    let menuPosition = reactive({ x: 240, y: 240 })
 
     let onMouseDown = () => {
-      isMouseDown.value = true;
+      isMouseDown.value = true
     }
-    let onMouseUp = (e) => {
+    let onMouseUp = e => {
       if (isDrag.value) {
         e.preventDefault()
       }
       isDrag.value = false
-      isMouseDown.value = false;
+      isMouseDown.value = false
     }
 
-    let { x, y } = useMousePosition();
+    let { x, y } = useMousePosition()
 
     watch([x, y], ([x, y]) => {
-      if(isMouseDown.value) {
+      if (isMouseDown.value) {
         isDrag.value = true
         menuPosition.x = x - 40
         menuPosition.y = y - 40
@@ -60,14 +59,13 @@ export default {
       menuPosition,
       onMouseDown,
       onMouseUp
-    };
-  },
-  data () {
-    return {
     }
   },
+  data() {
+    return {}
+  },
   computed: {
-    layout () {
+    layout() {
       var matchList = this.$route.matched
       if (!matchList.length) {
         return `div`
@@ -81,8 +79,7 @@ export default {
       return 'layout-c'
     }
   },
-  methods: {
-  },
+  methods: {}
 }
 </script>
 
@@ -94,5 +91,4 @@ body,
   height: 100%;
 }
 </style>
-<style lang="scss">
-</style>
+<style lang="scss"></style>
