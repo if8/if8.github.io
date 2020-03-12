@@ -1,5 +1,4 @@
 const webpack = require('webpack')
-const pathEnum = require('./path.enum')
 
 module.exports = {
   mode: 'development',
