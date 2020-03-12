@@ -54,7 +54,6 @@
     "axios": "^0.19.2",
     "buefy": "^0.8.13",
     "github-api": "^3.3.0",
-    "nprogress": "^0.2.0",
     "vue-meta": "^2.3.3"
   }
 }

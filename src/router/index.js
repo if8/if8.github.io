@@ -1,7 +1,5 @@
-
 import { asyncRouterArr, constantRouterArr } from './routes'
 import { recordChannel } from './hooks'
-import NProgress from 'nprogress/nprogress'
 
 function nextFactory (context, middlewareArr, index) {
   const subsequentMiddleware = middlewareArr[index]
@@ -10,7 +8,7 @@ function nextFactory (context, middlewareArr, index) {
     return context.next
   }
 
-  return (param) => {
+  return param => {
     if (param !== undefined) {
       return context.next(param)
     }
@@ -31,16 +29,13 @@ export default function (Vue, Router) {
     base: '/',
     linkActiveClass: 'active',
     scrollBehavior: () => ({ y: 0 }),
-    routes: asyncRouterArr.concat(constantRouterArr),
+    routes: asyncRouterArr.concat(constantRouterArr)
   })
 
   routerInstance.beforeEach((to, from, next) => {
     // 不是初始化页面
-    if (from.name !== null) {
-      NProgress.start()
-    }
 
-    let middlewareArr = [ recordChannel ]
+    let middlewareArr = [recordChannel]
 
     to.matched.reduce(function (accumulator, item) {
       if (Array.isArray(item.meta.middleware)) {
@@ -57,9 +52,8 @@ export default function (Vue, Router) {
     return middlewareArr[0]({ ...context, next: nextMiddleware })
   })
 
-  routerInstance.afterEach((to, from) => {
-    NProgress.done()
-  })
+  // routerInstance.afterEach((to, from) => {
+  // })
 
   return routerInstance
 }
