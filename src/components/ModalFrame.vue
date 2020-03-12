@@ -6,10 +6,7 @@
         <p class="modal-card-title">
           Modal title
         </p>
-        <button
-          class="delete"
-          aria-label="close"
-        />
+        <button class="delete" aria-label="close" />
       </header>
       <section class="modal-card-body">
         <!-- Content ... -->
@@ -32,5 +29,4 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
-</style>
+<style lang="scss" scoped></style>

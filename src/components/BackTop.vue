@@ -3,24 +3,21 @@
     <div
       v-show="visible"
       :style="{
-        'right': styleRight,
-        'bottom': styleBottom
+        right: styleRight,
+        bottom: styleBottom
       }"
       class="back-top"
       @click.stop="handleClick"
     >
       <slot>
-        <b-icon
-          pack="fas"
-          icon="angle-double-up"
-        />
+        <b-icon pack="fas" icon="angle-double-up" />
       </slot>
     </div>
   </transition>
 </template>
 
 <script>
-import { throttle } from '@libs/min-throttle.js';
+import { throttle } from '@libs/min-throttle.js'
 import { addCaptureScroll } from '@libs/scroll-listener'
 import { inOutCubic } from '@libs/easing'
 
@@ -44,70 +41,70 @@ export default {
       default: 40
     }
   },
-  data () {
+  data() {
     return {
       el: null,
       container: null,
       visible: false
-    };
-  },
-  computed: {
-    styleBottom () {
-      return `${this.bottom}px`;
-    },
-    styleRight () {
-      return `${this.right}px`;
     }
   },
-  mounted () {
-    this.init();
-    this.throttledScrollHandler = throttle(this.onScroll);
-    this.removeCaptureScroll = addCaptureScroll(this.throttledScrollHandler);
+  computed: {
+    styleBottom() {
+      return `${this.bottom}px`
+    },
+    styleRight() {
+      return `${this.right}px`
+    }
   },
-  beforeDestroy () {
+  mounted() {
+    this.init()
+    this.throttledScrollHandler = throttle(this.onScroll)
+    this.removeCaptureScroll = addCaptureScroll(this.throttledScrollHandler)
+  },
+  beforeDestroy() {
     this.removeCaptureScroll && this.removeCaptureScroll()
   },
   methods: {
-    init () {
-      this.container = document;
-      this.el = document.documentElement;
+    init() {
+      this.container = document
+      this.el = document.documentElement
       if (this.target) {
-        this.el = document.querySelector(this.target);
+        this.el = document.querySelector(this.target)
         if (!this.el) {
-          throw new Error(`target is not existed: ${this.target}`);
+          throw new Error(`target is not existed: ${this.target}`)
         }
-        this.container = this.el;
+        this.container = this.el
       }
     },
-    onScroll (event) {
+    onScroll(event) {
       if (this.container === event.target) {
-        const scrollTop = this.el.scrollTop;
+        const scrollTop = this.el.scrollTop
         this.$emit('scroll', scrollTop)
-        this.visible = scrollTop >= this.visibilityHeight;
+        this.visible = scrollTop >= this.visibilityHeight
       }
     },
-    handleClick (e) {
-      this.scrollToTop();
-      this.$emit('click', e);
+    handleClick(e) {
+      this.scrollToTop()
+      this.$emit('click', e)
     },
-    scrollToTop () {
-      const el = this.el;
-      const beginTime = Date.now();
-      const beginValue = el.scrollTop;
-      const rAF = window.requestAnimationFrame;
+    scrollToTop() {
+      const el = this.el
+      const beginTime = Date.now()
+      const beginValue = el.scrollTop
+      const rAF = window.requestAnimationFrame
       const frameFunc = () => {
-        const progress = (Date.now() - beginTime) / 500;
+        const progress = (Date.now() - beginTime) / 500
         if (progress < 1) {
-          el.scrollTop = beginValue * (1 - inOutCubic(progress));
-          rAF(frameFunc);
+          el.scrollTop = beginValue * (1 - inOutCubic(progress))
+          rAF(frameFunc)
         } else {
-          el.scrollTop = 0;
+          el.scrollTop = 0
         }
-      };
-      rAF(frameFunc);
+      }
+      rAF(frameFunc)
     }
   }
-};
+}
 </script>
 <style lang="scss" scoped>
 .back-top {

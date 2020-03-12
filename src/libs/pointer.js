@@ -4,32 +4,36 @@ var timeout = false
 var sDistX = 0
 var sDistY = 0
 
-window.addEventListener("scroll", function() {
-  if (!isScrolling) {
-    sDistX = window.pageXOffset
-    sDistY = window.pageYOffset
-  }
-  isScrolling = true
-  clearTimeout(timeout)
-  timeout = setTimeout(function() {
-    isScrolling = false
-    sDistX = 0
-    sDistY = 0
-  }, 100)
-}, true)
+window.addEventListener(
+  'scroll',
+  function() {
+    if (!isScrolling) {
+      sDistX = window.pageXOffset
+      sDistY = window.pageYOffset
+    }
+    isScrolling = true
+    clearTimeout(timeout)
+    timeout = setTimeout(function() {
+      isScrolling = false
+      sDistX = 0
+      sDistY = 0
+    }, 100)
+  },
+  true
+)
 
-body.addEventListener("mousedown", pointerDown)
-body.addEventListener("touchstart", pointerDown)
-body.addEventListener("mouseup", pointerUp)
-body.addEventListener("touchend", pointerUp)
-body.addEventListener("mousemove", pointerMove)
-body.addEventListener("touchmove", pointerMove)
-body.addEventListener("mouseout", pointerLeave)
-body.addEventListener("touchleave", pointerLeave)
+body.addEventListener('mousedown', pointerDown)
+body.addEventListener('touchstart', pointerDown)
+body.addEventListener('mouseup', pointerUp)
+body.addEventListener('touchend', pointerUp)
+body.addEventListener('mousemove', pointerMove)
+body.addEventListener('touchmove', pointerMove)
+body.addEventListener('mouseout', pointerLeave)
+body.addEventListener('touchleave', pointerLeave)
 
 // 'pointerdown' event, triggered by mousedown/touchstart.
 function pointerDown(e) {
-  var evt = makePointerEvent("down", e)
+  var evt = makePointerEvent('down', e)
   // don't maybeClick if more than one touch is active.
   var singleFinger = evt.mouse || (evt.touch && e.touches.length === 1)
   if (!isScrolling && singleFinger) {
@@ -42,17 +46,17 @@ function pointerDown(e) {
 // 'pointerdown' event, triggered by mouseout/touchleave.
 function pointerLeave(e) {
   e.target.maybeClick = false
-  makePointerEvent("leave", e)
+  makePointerEvent('leave', e)
 }
 
 // 'pointermove' event, triggered by mousemove/touchmove.
 function pointerMove(e) {
-  var evt = makePointerEvent("move", e)
+  makePointerEvent('move', e)
 }
 
 // 'pointerup' event, triggered by mouseup/touchend.
 function pointerUp(e) {
-  var evt = makePointerEvent("up", e)
+  var evt = makePointerEvent('up', e)
   // Does our target have maybeClick set by pointerdown?
   if (e.target.maybeClick) {
     // Have we moved too much?
@@ -66,7 +70,7 @@ function pointerUp(e) {
         (Math.abs(sDistX - window.pageXOffset) < 5 &&
           Math.abs(sDistY - window.pageYOffset) < 5)
       ) {
-        makePointerEvent("click", e)
+        makePointerEvent('click', e)
       }
     }
   }
@@ -75,10 +79,10 @@ function pointerUp(e) {
 
 function makePointerEvent(type, e) {
   var tgt = e.target
-  var evt = document.createEvent("CustomEvent")
-  evt.initCustomEvent("pointer" + type, true, true, {})
-  evt.touch = e.type.indexOf("touch") === 0
-  evt.mouse = e.type.indexOf("mouse") === 0
+  var evt = document.createEvent('CustomEvent')
+  evt.initCustomEvent('pointer' + type, true, true, {})
+  evt.touch = e.type.indexOf('touch') === 0
+  evt.mouse = e.type.indexOf('mouse') === 0
 
   if (evt.touch) {
     evt.x = e.changedTouches[0].pageX

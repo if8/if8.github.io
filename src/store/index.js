@@ -1,7 +1,7 @@
 // import { loggerPlugin } from './plugins'
 import { global, modules } from './modules.js'
 
-export default function init (Vue, Vuex) {
+export default function init(Vue, Vuex) {
   Vue.use(Vuex)
 
   let storeInstance = new Vuex.Store({

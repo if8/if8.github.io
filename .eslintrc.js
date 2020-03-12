@@ -14,7 +14,7 @@ module.exports = {
   ],
   rules: {
     "vue/no-unused-vars": "error",
-    "space-before-function-paren": "always",
+    "space-before-function-paren": ["error", "never"],
   },
-  plugins: ["html", "vue"]
+  plugins: ["vue"]
 }

@@ -1,9 +1,9 @@
-import { promiseInvert } from "@utils/index.js"
-import CompError from "@components/CompError.vue"
-import CompLoading from "@components/CompLoading.vue"
-import NotFound from "@components/NotFound.vue"
-import SiteIntro from "@components/business/SiteIntro.vue"
-import ShowIcons from "@components/ShowIcons.vue"
+import { promiseInvert } from '@utils/index.js'
+import CompError from '@components/CompError.vue'
+import CompLoading from '@components/CompLoading.vue'
+import NotFound from '@components/NotFound.vue'
+import SiteIntro from '@components/business/SiteIntro.vue'
+import ShowIcons from '@components/ShowIcons.vue'
 
 export function lazyLoadView(AsyncView) {
   const AsyncHandler = () => ({
@@ -56,44 +56,44 @@ export function lazyLoadComponent({ compFactory, loadingComp, loadingData }) {
 
 export const constantRouterArr = [
   {
-    path: "/",
-    name: "home",
+    path: '/',
+    name: 'home',
     component: SiteIntro,
     meta: {
       layout: 'LayoutC'
     }
   },
   {
-    path: "/icons",
-    name: "icons",
+    path: '/icons',
+    name: 'icons',
     component: ShowIcons,
     meta: {
       layout: 'LayoutEmpty'
     }
   },
   {
-    path: "/404",
-    name: "404",
+    path: '/404',
+    name: '404',
     component: NotFound,
     meta: {
       layout: 'LayoutA'
     }
   },
   {
-    path: "/c",
-    name: "c",
+    path: '/c',
+    name: 'c',
     component: NotFound,
     meta: {
       layout: 'LayoutC'
     }
   },
   {
-    path: "*",
-    redirect: "/404"
+    path: '*',
+    redirect: '/404'
   }
 ]
 
-const files = require.context("@pages", true, /router.js$/)
+const files = require.context('@pages', true, /router.js$/)
 
 export const asyncRouterArr = files.keys().reduce(function(acc, key) {
   return acc.concat(files(key).default)

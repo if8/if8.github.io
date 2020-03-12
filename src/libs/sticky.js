@@ -1,22 +1,31 @@
 import { addCaptureScroll } from './scroll-listener'
 
-function _getStickyVal () {
+function _getStickyVal() {
   let el = document.createElement('a')
   let mStyle = el.style
-  mStyle.cssText = 'position:sticky;position:-o-sticky;position:-webkit-sticky;position:-moz-sticky;position:-ms-sticky;'
+  mStyle.cssText =
+    'position:sticky;position:-o-sticky;position:-webkit-sticky;position:-moz-sticky;position:-ms-sticky;'
   return mStyle.position
 }
 
-function isBfcElement (element) {
+function isBfcElement(element) {
   var elementStyle = getComputedStyle(element)
 
-  return elementStyle.getPropertyValue('float') !== 'none' ||
+  return (
+    elementStyle.getPropertyValue('float') !== 'none' ||
     elementStyle.getPropertyValue('overflow') !== 'visible' ||
     ['absolute', 'fixed'].includes(elementStyle.getPropertyValue('position')) ||
-    ['inline-block', 'table-cell', 'table-caption', 'flex', 'inline-flex'].includes(elementStyle.getPropertyValue('display'))
+    [
+      'inline-block',
+      'table-cell',
+      'table-caption',
+      'flex',
+      'inline-flex'
+    ].includes(elementStyle.getPropertyValue('display'))
+  )
 }
 
-export function scrollParent (node) {
+export function scrollParent(node) {
   if (node instanceof HTMLElement || node instanceof SVGElement) {
     let result = node.parentNode
     while (result && result !== document) {
@@ -36,7 +45,7 @@ const rAF =
   window.msRequestAnimationFrame
 
 class Sticky {
-  constructor (target, o = {}) {
+  constructor(target, o = {}) {
     this.options = {
       needSticky: o.needSticky || true,
       top: o.top,
@@ -54,7 +63,7 @@ class Sticky {
       xStuckClass: o.xStuckClass || 'js-x-stuck',
       xStickyClass: o.xStickyClass || 'js-x-sticky',
       xStickyChangeClass: o.xStickyChangeClass || 'js-x-sticky--change',
-      xStickyChangeNumber: o.xStickyChangeNumber || null,
+      xStickyChangeNumber: o.xStickyChangeNumber || null
     }
     this.stickyVal = o.isForcePolyfill ? '' : _getStickyVal()
     this.target = target
@@ -68,21 +77,35 @@ class Sticky {
     this.addListener()
   }
 
-  update (updatedProps = {}) {
-    Object.keys(updatedProps).forEach((updatedProp) => {
+  update(updatedProps = {}) {
+    Object.keys(updatedProps).forEach(updatedProp => {
       this.options[updatedProp] = updatedProps[updatedProp]
     })
     this.fixOptions()
   }
 
-  fixOptions (invalid = '') {
-    if (!invalid && this.options.top == null && this.options.bottom == null && this.options.left == null && this.options.right == null) {
+  fixOptions(invalid = '') {
+    if (
+      !invalid &&
+      this.options.top == null &&
+      this.options.bottom == null &&
+      this.options.left == null &&
+      this.options.right == null
+    ) {
       this.options.top = 0
     }
-    if (!invalid && (this.options.top != null || this.options.bottom != null) && !this.hasYChangeNumber) {
+    if (
+      !invalid &&
+      (this.options.top != null || this.options.bottom != null) &&
+      !this.hasYChangeNumber
+    ) {
       this.options.yStickyChangeNumber = this.target.offsetHeight
     }
-    if (!invalid && (this.options.left != null || this.options.right != null) && !this.hasXChangeNumber) {
+    if (
+      !invalid &&
+      (this.options.left != null || this.options.right != null) &&
+      !this.hasXChangeNumber
+    ) {
       this.options.xStickyChangeNumber = this.target.offsetWidth
     }
     if (this.options.needSticky && this.stickyVal) {
@@ -104,13 +127,16 @@ class Sticky {
     this.cacheInfo = this.computeCache()
   }
 
-  addListener () {
-    if (this.options.useClasses || (this.options.needSticky && !this.stickyVal)) {
+  addListener() {
+    if (
+      this.options.useClasses ||
+      (this.options.needSticky && !this.stickyVal)
+    ) {
       this.removeCaptureScroll = addCaptureScroll(this.scrollCall)
     }
   }
 
-  computeCache () {
+  computeCache() {
     let sRect = this.scrollEle.getBoundingClientRect()
     let pRect = this.parentEle.getBoundingClientRect()
     let tRect = this.target.getBoundingClientRect()
@@ -125,11 +151,11 @@ class Sticky {
     let scrollHeight = this.scrollEle.scrollHeight
     let scrollWidth = this.scrollEle.scrollWidth
 
-    function getScrollRight (scrollLeft) {
+    function getScrollRight(scrollLeft) {
       return scrollWidth - offsetWidth - scrollLeft
     }
 
-    function getScrollBottom (scrollTop) {
+    function getScrollBottom(scrollTop) {
       return scrollHeight - offsetHeight - scrollTop
     }
 
@@ -157,12 +183,18 @@ class Sticky {
       getScrollBottom,
       distanceLeft: scrollLeft + tRect.left - (sRect.left + this.options.left),
       distanceTop: scrollTop + tRect.top - (sRect.top + this.options.top),
-      distanceRight: getScrollRight(scrollLeft) + (sRect.right - this.options.right) - tRect.right,
-      distanceBottom: getScrollBottom(scrollTop) + (sRect.bottom - this.options.bottom) - tRect.bottom,
+      distanceRight:
+        getScrollRight(scrollLeft) +
+        (sRect.right - this.options.right) -
+        tRect.right,
+      distanceBottom:
+        getScrollBottom(scrollTop) +
+        (sRect.bottom - this.options.bottom) -
+        tRect.bottom
     }
   }
 
-  setStyle () {
+  setStyle() {
     let { stickyVal, target, scrollEle, cacheInfo } = this
     let {
       top,
@@ -182,9 +214,17 @@ class Sticky {
     } = this.options
     let newY = 0
     let newX = 0
-    let addClassArr = target.className.split(/\s+/).filter(function (item) {
-      return item && item !== yStickyClass && item !== yStuckClass && item !== yStickyChangeClass &&
-        item !== xStickyClass && item !== xStuckClass && item !== xStickyChangeClass && item !== polyfillClass
+    let addClassArr = target.className.split(/\s+/).filter(function(item) {
+      return (
+        item &&
+        item !== yStickyClass &&
+        item !== yStuckClass &&
+        item !== yStickyChangeClass &&
+        item !== xStickyClass &&
+        item !== xStuckClass &&
+        item !== xStickyChangeClass &&
+        item !== polyfillClass
+      )
     })
 
     if (top != null) {
@@ -203,7 +243,9 @@ class Sticky {
     }
 
     if (bottom != null) {
-      newY = cacheInfo.getScrollBottom(scrollEle.scrollTop) - cacheInfo.distanceBottom
+      newY =
+        cacheInfo.getScrollBottom(scrollEle.scrollTop) -
+        cacheInfo.distanceBottom
       if (newY < 0) {
         newY = 0
       } else if (newY > cacheInfo.freeBottom) {
@@ -234,7 +276,8 @@ class Sticky {
     }
 
     if (right != null) {
-      newX = cacheInfo.getScrollRight(scrollEle.scrollLeft) - cacheInfo.distanceRight
+      newX =
+        cacheInfo.getScrollRight(scrollEle.scrollLeft) - cacheInfo.distanceRight
       if (newX < 0) {
         newX = 0
       } else if (newX < cacheInfo.freeRight) {
@@ -258,18 +301,23 @@ class Sticky {
     target.className = addClassArr.join(' ')
   }
 
-  scrollCall (event) {
-    if ((this.scrollEle === event.target || (event.target === document && this.scrollEle === document.documentElement)) && this.cacheInfo.isShow) {
+  scrollCall(event) {
+    if (
+      (this.scrollEle === event.target ||
+        (event.target === document &&
+          this.scrollEle === document.documentElement)) &&
+      this.cacheInfo.isShow
+    ) {
       rAF(this.setStyle)
     }
   }
 
-  cleanup () {
+  cleanup() {
     this.fixOptions('invalid')
     this.removeCaptureScroll && this.removeCaptureScroll(this.scrollCall)
   }
 }
 
-export default function sticky (target, o) {
+export default function sticky(target, o) {
   return new Sticky(target, o)
 }

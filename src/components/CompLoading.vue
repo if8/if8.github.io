@@ -3,11 +3,9 @@
 </template>
 
 <script>
-  export default {
-    name: 'CompLoading',
-  }
+export default {
+  name: 'CompLoading'
+}
 </script>
 
-<style lang="scss" scoped>
-
-</style>
+<style lang="scss" scoped></style>

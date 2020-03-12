@@ -4,6 +4,7 @@
   "description": "Vue AimWhy",
   "main": "index.js",
   "scripts": {
+    "lint": "eslint src/**/*.vue --fix",
     "test": "echo \"Error: no test specified\" && exit 1",
     "clean": "rm -rf dist",
     "dev": "webpack-dev-server -d",

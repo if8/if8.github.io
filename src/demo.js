@@ -1,12 +1,12 @@
-import { AsyncQueue } from "@libs/AsyncQueue"
+import { AsyncQueue } from '@libs/AsyncQueue'
 
-export function genAsyncQueue(params) {
+export function genAsyncQueue() {
   let channel = new AsyncQueue()
   return {
-    get () {
+    get() {
       return channel.get()
     },
-    put (message) {
+    put(message) {
       return channel.put(message)
     }
   }
@@ -33,12 +33,12 @@ export function asyncCallback(func, files, finish) {
 
 export function compose(middleware) {
   if (!Array.isArray(middleware)) {
-    throw new TypeError("Middleware stack must be an array!")
+    throw new TypeError('Middleware stack must be an array!')
   }
 
   for (const fn of middleware) {
-    if (typeof fn !== "function") {
-      throw new TypeError("Middleware must be composed of functions!")
+    if (typeof fn !== 'function') {
+      throw new TypeError('Middleware must be composed of functions!')
     }
   }
 
@@ -47,7 +47,7 @@ export function compose(middleware) {
 
     function dispatch(runIndex, ...args) {
       if (runIndex <= index) {
-        return Promise.reject(new Error("next() called multiple times"))
+        return Promise.reject(new Error('next() called multiple times'))
       }
 
       if (args.length) {
@@ -74,26 +74,26 @@ export function compose(middleware) {
   }
 }
 
-export function travel(dir, callback, finish) {
-  fs.readdir(dir, function(err, files) {
-    ;(function next(i) {
-      if (i < files.length) {
-        var pathname = path.join(dir, files[i])
+// export function travel(dir, callback, finish) {
+//   fs.readdir(dir, function(err, files) {
+//     ;(function next(i) {
+//       if (i < files.length) {
+//         var pathname = path.join(dir, files[i])
 
-        fs.stat(pathname, function(err, stats) {
-          if (stats.isDirectory()) {
-            travel(pathname, callback, function() {
-              next(i + 1)
-            })
-          } else {
-            callback(pathname, function() {
-              next(i + 1)
-            })
-          }
-        })
-      } else {
-        finish && finish()
-      }
-    })(0)
-  })
-}
+//         fs.stat(pathname, function(err, stats) {
+//           if (stats.isDirectory()) {
+//             travel(pathname, callback, function() {
+//               next(i + 1)
+//             })
+//           } else {
+//             callback(pathname, function() {
+//               next(i + 1)
+//             })
+//           }
+//         })
+//       } else {
+//         finish && finish()
+//       }
+//     })(0)
+//   })
+// }

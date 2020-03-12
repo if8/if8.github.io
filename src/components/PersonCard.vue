@@ -5,7 +5,7 @@
         <img
           src="https://bulma.io/images/placeholders/1280x960.png"
           alt="Placeholder image"
-        >
+        />
       </figure>
     </div>
     <div class="card-content">
@@ -15,7 +15,7 @@
             <img
               src="https://bulma.io/images/placeholders/96x96.png"
               alt="Placeholder image"
-            >
+            />
           </figure>
         </div>
         <div class="media-content">
@@ -29,12 +29,12 @@
       </div>
 
       <div class="content">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-        Phasellus nec iaculis mauris.
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus nec
+        iaculis mauris.
         <a>@bulmaio</a>.
         <a href="#">#css</a>
         <a href="#">#responsive</a>
-        <br>
+        <br />
         <time datetime="2016-1-1">11:09 PM - 1 Jan 2016</time>
       </div>
     </div>
@@ -47,5 +47,4 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
-</style>
+<style lang="scss" scoped></style>

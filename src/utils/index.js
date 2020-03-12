@@ -1,14 +1,14 @@
-export function promiseInvert () {
+export function promiseInvert() {
   var resolve
   var reject
-  var promise = new Promise(function (r, j) {
+  var promise = new Promise(function(r, j) {
     resolve = r
     reject = j
   })
   return { promise, resolve, reject }
 }
 
-export function getIEVersion () {
+export function getIEVersion() {
   const ua = window.navigator.userAgent
 
   const msie = ua.indexOf('MSIE ')

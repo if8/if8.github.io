@@ -1,72 +1,72 @@
-var path = require("path")
-var webpack = require("webpack")
-var htmlWebpackPlugin = require("html-webpack-plugin")
-var copyWebpackPlugin = require("copy-webpack-plugin")
-var vueLoaderPlugin = require("vue-loader/lib/plugin")
-var miniCssExtractPlugin = require("mini-css-extract-plugin")
+var path = require('path')
+var webpack = require('webpack')
+var htmlWebpackPlugin = require('html-webpack-plugin')
+var copyWebpackPlugin = require('copy-webpack-plugin')
+var vueLoaderPlugin = require('vue-loader/lib/plugin')
+var miniCssExtractPlugin = require('mini-css-extract-plugin')
 
 module.exports = (env, argv) => {
   let config = {
     entry: {
-      app: "./src/index.js"
+      app: './src/index.js'
     },
     output: {
-      path: path.resolve(__dirname, "./static"),
-      publicPath: "/static",
-      filename: argv.mode === "production" ? "[name].[hash].js" : "[name].js"
+      path: path.resolve(__dirname, './static'),
+      publicPath: '/static',
+      filename: argv.mode === 'production' ? '[name].[hash].js' : '[name].js'
     },
     resolve: {
       alias: {
-        "@": path.resolve(__dirname, "./src"),
-        "@hooks": path.resolve(__dirname, "./src/hooks"),
-        "@libs": path.resolve(__dirname, "./src/libs"),
-        "@utils": path.resolve(__dirname, "./src/utils"),
-        "@pages": path.resolve(__dirname, "./src/pages"),
-        "@styles": path.resolve(__dirname, "./src/styles"),
-        "@components": path.resolve(__dirname, "./src/components")
+        '@': path.resolve(__dirname, './src'),
+        '@hooks': path.resolve(__dirname, './src/hooks'),
+        '@libs': path.resolve(__dirname, './src/libs'),
+        '@utils': path.resolve(__dirname, './src/utils'),
+        '@pages': path.resolve(__dirname, './src/pages'),
+        '@styles': path.resolve(__dirname, './src/styles'),
+        '@components': path.resolve(__dirname, './src/components')
       }
     },
     module: {
       rules: [
         {
           test: /\.scss$/,
-          use: [miniCssExtractPlugin.loader, "css-loader", "sass-loader"]
+          use: [miniCssExtractPlugin.loader, 'css-loader', 'sass-loader']
         },
         {
           test: /\.sass$/,
           use: [
             miniCssExtractPlugin.loader,
-            "css-loader",
+            'css-loader',
             {
-              loader: "sass-loader",
+              loader: 'sass-loader',
               options: { sassOptions: { indentedSyntax: true } }
             }
           ]
         },
         {
           test: /\.css$/,
-          use: [miniCssExtractPlugin.loader, "css-loader"]
+          use: [miniCssExtractPlugin.loader, 'css-loader']
         },
         {
           test: /\.vue$/,
-          loader: "vue-loader",
+          loader: 'vue-loader',
           options: {
             loaders: {
-              css: [miniCssExtractPlugin.loader, "css-loader"],
-              postcss: [miniCssExtractPlugin.loader, "css-loader"],
+              css: [miniCssExtractPlugin.loader, 'css-loader'],
+              postcss: [miniCssExtractPlugin.loader, 'css-loader'],
               sass: [
                 miniCssExtractPlugin.loader,
-                "css-loader",
+                'css-loader',
                 {
-                  loader: "sass-loader",
+                  loader: 'sass-loader',
                   options: { indentedSyntax: true }
                 }
               ],
               scss: [
                 miniCssExtractPlugin.loader,
-                "css-loader",
+                'css-loader',
                 {
-                  loader: "sass-loader",
+                  loader: 'sass-loader',
                   options: { sassOptions: { indentedSyntax: true } }
                 }
               ]
@@ -75,59 +75,59 @@ module.exports = (env, argv) => {
         },
         {
           test: /\.js$/,
-          loader: "babel-loader",
+          loader: 'babel-loader',
           exclude: /node_modules/
         },
         {
           test: /\.(eot(|\?v=.*)|woff(|\?v=.*)|woff2(|\?v=.*)|ttf(|\?v=.*)|svg(|\?v=.*))$/,
-          loader: "file-loader",
-          options: { name: "fonts/[name].[ext]" }
+          loader: 'file-loader',
+          options: { name: 'fonts/[name].[ext]' }
         },
         {
           test: /\.(png|jpg|gif)$/,
-          loader: "file-loader"
+          loader: 'file-loader'
         }
       ]
     },
     plugins: [
       new htmlWebpackPlugin({
-        template: "./src/index.html"
+        template: './src/index.html'
       }),
 
       new miniCssExtractPlugin({
-        filename: argv.mode === "production" ? "app.[hash].css" : "app.css",
+        filename: argv.mode === 'production' ? 'app.[hash].css' : 'app.css',
         allChunks: true
       }),
 
       new webpack.DefinePlugin({
-        "process.env": {
+        'process.env': {
           NODE_ENV: argv.mode
         }
       }),
 
       new copyWebpackPlugin([
         {
-          from: "src/public",
-          to: path.join(__dirname, "static")
+          from: 'src/public',
+          to: path.join(__dirname, 'static')
         }
       ]),
 
       new vueLoaderPlugin()
     ],
     externals: {
-      vue: "Vue",
-      vuex: "Vuex",
-      "vue-router": "VueRouter",
+      vue: 'Vue',
+      vuex: 'Vuex',
+      'vue-router': 'VueRouter'
     }
   }
 
-  if (argv.mode === "development") {
+  if (argv.mode === 'development') {
     config.devServer = {
-      contentBase: path.resolve(__dirname, "src", "public"),
+      contentBase: path.resolve(__dirname, 'src', 'public'),
       compress: true,
       historyApiFallback: true,
       open: true,
-      openPage: "static",
+      openPage: 'static',
       watchOptions: {
         aggregateTimeout: 300,
         poll: 1000
@@ -135,8 +135,8 @@ module.exports = (env, argv) => {
     }
   }
 
-  if (argv.mode === "production") {
-  }
+  // if (argv.mode === 'production') {
+  // }
 
   return config
 }

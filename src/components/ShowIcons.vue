@@ -1,15 +1,7 @@
 <template>
   <div class="show-icons">
-    <div
-      v-for="name in nameList"
-      :key="name"
-      class="icon-wrap"
-    >
-      <b-icon
-        pack="fas"
-        :icon="name"
-        size="is-large"
-      />
+    <div v-for="name in nameList" :key="name" class="icon-wrap">
+      <b-icon pack="fas" :icon="name" size="is-large" />
       <div>{{ name }}</div>
     </div>
   </div>
@@ -19,7 +11,7 @@
 import { IconNameList } from '@utils/icon-names.js'
 export default {
   name: 'ShowIcons',
-  data () {
+  data() {
     return {
       nameList: IconNameList
     }

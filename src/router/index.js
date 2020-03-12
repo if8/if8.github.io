@@ -1,7 +1,7 @@
 import { asyncRouterArr, constantRouterArr } from './routes'
 import { recordChannel } from './hooks'
 
-function nextFactory (context, middlewareArr, index) {
+function nextFactory(context, middlewareArr, index) {
   const subsequentMiddleware = middlewareArr[index]
 
   if (!subsequentMiddleware) {
@@ -17,7 +17,7 @@ function nextFactory (context, middlewareArr, index) {
   }
 }
 
-export default function (Vue, Router) {
+export default function(Vue, Router) {
   Vue.use(Router)
 
   const routerInstance = new Router({
@@ -37,7 +37,7 @@ export default function (Vue, Router) {
 
     let middlewareArr = [recordChannel]
 
-    to.matched.reduce(function (accumulator, item) {
+    to.matched.reduce(function(accumulator, item) {
       if (Array.isArray(item.meta.middleware)) {
         accumulator.push.apply(accumulator, item.meta.middleware)
       } else if (item.meta.middleware) {

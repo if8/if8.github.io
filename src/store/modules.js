@@ -12,7 +12,7 @@ const mutations = {
 
 const actions = {
   fetchShowAlert(context, v) {
-    context.commit("setShowAlert", v)
+    context.commit('setShowAlert', v)
   }
 }
 
@@ -25,7 +25,7 @@ export const global = {
 
 const files = require.context('@pages', true, /store.js$/)
 
-export const modules = files.keys().reduce(function (acc, key) {
+export const modules = files.keys().reduce(function(acc, key) {
   var dirs = key.split('/')
   const moduleName = dirs[dirs.length - 2]
   acc[moduleName] = files(key).default
