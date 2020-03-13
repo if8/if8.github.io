@@ -9,7 +9,7 @@ import {
   onUnmounted,
 } from '@libs/composition-api'
 
-const DEFAULT_KEY = 'UMIJS_USE_API_DEFAULT_KEY'
+const DEFAULT_KEY = 'USE_API_DEFAULT_KEY'
 
 export default function useAsync(service, options = {}) {
   const {
@@ -47,31 +47,34 @@ export default function useAsync(service, options = {}) {
 
   let newstFetchRef = ref(DEFAULT_KEY)
   let newFetches = {}
+  let cacheData = cacheKey && getCache(cacheKey)
 
   // 如果有 缓存，则从缓存中读数据
-  if (cacheKey) {
-    const cache = getCache(cacheKey)
-
-    if (cache) {
-      newstFetchRef.value = cache.newstFetchKey
-      Object.keys(cache.fetches).forEach(key => {
-        const cacheFetch = cache.fetches[key]
-        const newFetch = new Fetch(service, config, subscribe.bind(null, key), {
-          loading: cacheFetch.loading,
-          params: cacheFetch.params,
-          data: cacheFetch.data,
-          error: cacheFetch.error,
-        })
-        newFetches[key] = newFetch.state
+  if (cacheData) {
+    newstFetchRef.value = cacheData.newstFetchKey
+    Object.keys(cacheData.fetches).forEach(key => {
+      const cacheFetch = cacheData.fetches[key]
+      const newFetch = new Fetch(service, config, subscribe.bind(null, key), {
+        loading: cacheFetch.loading,
+        params: cacheFetch.params,
+        data: cacheFetch.data,
+        error: cacheFetch.error,
       })
-    }
+      newFetches[key] = newFetch.state
+    })
   }
 
   const fetchesRef = ref(newFetches)
 
   const subscribe = (key, data) => {
-    window.fetchesRef = fetchesRef
     fetchesRef.value[key] = data
+
+    if (cacheKey) {
+      setCache(cacheKey, {
+        fetches: fetchesRef.value,
+        newstFetchKey: newstFetchRef.value,
+      })
+    }
   }
 
   const run = (...args) => {
@@ -93,24 +96,11 @@ export default function useAsync(service, options = {}) {
         },
       )
       currentFetch = newFetch.state
-
       set(fetchesRef.value, currentFetchKey, currentFetch)
     }
+
     return currentFetch.run(...args)
   }
-
-  watch(
-    newstFetchRef,
-    () => {
-      if (cacheKey) {
-        setCache(cacheKey, {
-          fetches: fetchesRef.value,
-          newstFetchKey: newstFetchRef.value,
-        })
-      }
-    },
-    { deep: true, lazy: false },
-  )
 
   onMounted(() => {
     if (!manual) {
@@ -124,7 +114,6 @@ export default function useAsync(service, options = {}) {
     }
   })
 
-  // 重置 fetches
   const reset = () => {
     Object.values(fetchesRef.value).forEach(f => {
       f.unmount()
@@ -133,16 +122,20 @@ export default function useAsync(service, options = {}) {
     fetchesRef.value = {}
   }
 
-  watch(refreshDeps, () => {
-    if (!manual) {
-      Object.values(fetchesRef.value).forEach(f => {
-        f.refresh()
-      })
-    }
-  })
+  let unWatch = watch(
+    refreshDeps,
+    () => {
+      if (!manual) {
+        Object.values(fetchesRef.value).forEach(f => {
+          f.refresh()
+        })
+      }
+    },
+    { deep: true },
+  )
 
-  // 卸载组件触发
   onUnmounted(() => {
+    unWatch()
     reset()
   })
 
