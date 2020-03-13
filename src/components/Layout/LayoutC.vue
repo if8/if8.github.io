@@ -1,19 +1,15 @@
 <template>
   <div class="layout-c">
-    <TopNav :class="{'has-scroll': hasScroll}" />
+    <TopNav :class="{ 'has-scroll': hasScroll }" />
     <div class="is-gradient">
       <div class="header py-100 text-center">
         <h1 class="title">
-          Y
-          our Stars
+          Y our Stars
         </h1>
         <p>Browse your starred repositories and topics</p>
       </div>
       <div class="cloud">
-        <svg
-          viewBox="0 0 1600 100"
-          class="separator"
-        >
+        <svg viewBox="0 0 1600 100" class="separator">
           <path
             d="M0 0v64c35 13 59 31 125 31 104 0 104-44 209-44s105 44 209 44 105-44 209-44 105 44 209 44 105-44 209-44 106 44 209 44 105-44 209-44h12V0z"
             class="step1"
@@ -29,37 +25,31 @@
         </svg>
       </div>
     </div>
-    <router-view name="left" />
-    <div style="height:2000px;" />
-    <Pagination style="width:100%; " />
+    <router-view />
     <div class="footer-svg" />
-    <BackTop
-      @scroll="switchHeaderClass"
-    />
+    <BackTop @scroll="switchHeaderClass" />
   </div>
 </template>
 
 <script>
 import BackTop from '@components/BackTop.vue'
-import Pagination from '@components/Pagination.vue'
 import TopNav from '@components/TopNav.vue'
 export default {
   name: 'LayoutC',
   components: {
     BackTop,
-    Pagination,
-    TopNav
+    TopNav,
   },
-  data () {
+  data() {
     return {
-      hasScroll: false
+      hasScroll: false,
     }
   },
   methods: {
-    switchHeaderClass (scrollTop) {
+    switchHeaderClass(scrollTop) {
       this.hasScroll = scrollTop > 0
-    }
-  }
+    },
+  },
 }
 </script>
 <style lang="scss">
@@ -150,7 +140,6 @@ export default {
     bottom: 12vw;
     border-radius: 45% 46% 45.5% 46%;
     animation-name: rotate;
-
   }
 
   &:after {

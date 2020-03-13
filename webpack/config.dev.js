@@ -1,4 +1,5 @@
 const webpack = require('webpack')
+const pathEnum = require('./path.enum')
 
 module.exports = {
   mode: 'development',
@@ -7,19 +8,19 @@ module.exports = {
 
   output: {
     filename: '[name].js',
-    chunkFilename: '[name].chunk.js'
+    chunkFilename: '[name].chunk.js',
   },
 
   module: {
     rules: [
       {
         test: /\.css$/,
-        use: ['style-loader', 'css-loader']
+        use: ['style-loader', 'css-loader'],
       },
       {
         test: /\.(css|scss)$/,
         use: ['vue-style-loader', 'css-loader', 'sass-loader'],
-        exclude: /node_modules/
+        exclude: /node_modules/,
       },
       {
         test: /\.vue$/,
@@ -28,11 +29,11 @@ module.exports = {
           loaders: {
             css: ['vue-style-loader', 'css-loader'],
             postcss: ['vue-style-loader', 'css-loader'],
-            scss: ['vue-style-loader', 'css-loader', 'sass-loader']
-          }
-        }
-      }
-    ]
+            scss: ['vue-style-loader', 'css-loader', 'sass-loader'],
+          },
+        },
+      },
+    ],
   },
 
   plugins: [new webpack.HotModuleReplacementPlugin()],
@@ -41,19 +42,21 @@ module.exports = {
 
   optimization: {
     splitChunks: {
-      chunks: 'all'
-    }
+      chunks: 'all',
+    },
   },
 
+  watch: true,
+
   devServer: {
-    // contentBase: '/',
     compress: true,
     historyApiFallback: true,
     open: true,
-    // openPage: 'static',
+    hot: true,
+    openPage: pathEnum.publicPath,
     watchOptions: {
       aggregateTimeout: 300,
-      poll: 1000
-    }
-  }
+      poll: 1000,
+    },
+  },
 }

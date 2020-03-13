@@ -25,7 +25,7 @@
     "sourceMap": true,
     // 忽略 this 的类型检查, Raise error on this expressions with an implied any type.
     "noImplicitThis": false,
-    "noImplicitAny": true,
+    "noImplicitAny": false,
     // 解析非相对模块名的基准目录
     "baseUrl": "./",
     // 给错误和消息设置样式，使用颜色和上下文。
@@ -38,7 +38,7 @@
     "lib": ["ESNext", "DOM", "DOM.Iterable", "ScriptHost"]
   },
   // ts 管理的文件
-  "include": ["src/**/*.ts", "src/**/*.tsx", "src/**/*.vue"],
+  "include": ["src/**/*.ts", "src/**/*.tsx", "src/**/*.vue", "src/hooks/useRequest/useAsync.js"],
   // ts 排除的文件
   "exclude": ["node_modules"]
 }

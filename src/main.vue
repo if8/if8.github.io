@@ -18,13 +18,13 @@
 import AutoScroll from '../demo/AutoScroll.vue'
 import TouchMenu from '@components/business/TouchMenu.vue'
 import { useMousePosition } from '@hooks/mouse-position.js'
-import { ref, reactive, watch } from '@vue/composition-api'
+import { ref, reactive, watch } from '@libs/composition-api'
 
 export default {
   name: `main`,
   components: {
     AutoScroll,
-    TouchMenu
+    TouchMenu,
   },
   setup() {
     let isMouseDown = ref(false)
@@ -58,7 +58,7 @@ export default {
       y,
       menuPosition,
       onMouseDown,
-      onMouseUp
+      onMouseUp,
     }
   },
   data() {
@@ -77,9 +77,9 @@ export default {
         }
       }
       return 'layout-c'
-    }
+    },
   },
-  methods: {}
+  methods: {},
 }
 </script>
 

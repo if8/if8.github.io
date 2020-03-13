@@ -11,14 +11,14 @@ export function lazyLoadView(AsyncView) {
     loading: CompLoading,
     error: CompError,
     delay: 400,
-    timeout: 8000
+    timeout: 8000,
   })
 
   return Promise.resolve({
     functional: true,
     render(h, { data, children }) {
       return h(AsyncHandler, data, children)
-    }
+    },
   })
 }
 
@@ -48,8 +48,8 @@ export function lazyLoadComponent({ compFactory, loadingComp, loadingData }) {
         },
         render(createElement) {
           return createElement(loadingComp, loadingData)
-        }
-      }
+        },
+      },
     }
   }
 }
@@ -60,37 +60,38 @@ export const constantRouterArr = [
     name: 'home',
     component: SiteIntro,
     meta: {
-      layout: 'LayoutC'
-    }
+      layout: 'LayoutC',
+    },
+    children: [],
   },
   {
     path: '/icons',
     name: 'icons',
     component: ShowIcons,
     meta: {
-      layout: 'LayoutEmpty'
-    }
+      layout: 'LayoutEmpty',
+    },
   },
   {
     path: '/404',
     name: '404',
     component: NotFound,
     meta: {
-      layout: 'LayoutA'
-    }
+      layout: 'LayoutA',
+    },
   },
   {
     path: '/c',
     name: 'c',
     component: NotFound,
     meta: {
-      layout: 'LayoutC'
-    }
+      layout: 'LayoutC',
+    },
   },
   {
     path: '*',
-    redirect: '/404'
-  }
+    redirect: '/404',
+  },
 ]
 
 const files = require.context('@pages', true, /router.js$/)

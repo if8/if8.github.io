@@ -6,13 +6,10 @@ import Meta from 'vue-meta'
 import initLayout from '@components/Layout/index.js'
 import initRouter from './router/index.js'
 import initStore from './store/index.js'
-import VueCompositionApi from '@vue/composition-api'
+import VueCompositionApi from '@libs/composition-api'
 import Buefy from 'buefy'
 import 'buefy/dist/buefy.css'
 import '@styles/common.scss'
-import { setCache } from '@hooks/useRequest/utils/cache.ts'
-
-window.why = setCache
 
 initLayout(Vue)
 let store = initStore(Vue, Vuex)
