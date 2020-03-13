@@ -10,6 +10,9 @@ import VueCompositionApi from '@vue/composition-api'
 import Buefy from 'buefy'
 import 'buefy/dist/buefy.css'
 import '@styles/common.scss'
+import { setCache } from '@hooks/useRequest/utils/cache.ts'
+
+window.why = setCache
 
 initLayout(Vue)
 let store = initStore(Vue, Vuex)
@@ -21,7 +24,7 @@ Vue.use(VueCompositionApi)
 Vue.use(Meta, {
   keyName: 'metaInfo', // the component option name that vue-meta looks for meta info on.
   attribute: 'data-vue-meta', // the attribute name vue-meta adds to the tags it observes
-  tagIDKeyName: 'vmid' // the property name that vue-meta uses to determine whether to overwrite or append a tag
+  tagIDKeyName: 'vmid', // the property name that vue-meta uses to determine whether to overwrite or append a tag
 })
 Vue.use(Buefy)
 
@@ -29,5 +32,5 @@ window.App = new Vue({
   el: '#app',
   router,
   store,
-  ...App
+  ...App,
 })

@@ -12,24 +12,24 @@ module.exports = {
   output: {
     filename: `${pathEnum.jsFolder}/[name].[hash].js`,
     path: pathEnum.outputPath,
-    chunkFilename: `${pathEnum.jsFolder}/[name].[chunkhash].js`
+    chunkFilename: `${pathEnum.jsFolder}/[name].[chunkhash].js`,
   },
 
   module: {
     rules: [
       {
         test: /\.css$/,
-        use: [MiniCssExtractPlugin.loader, 'css-loader']
+        use: [MiniCssExtractPlugin.loader, 'css-loader'],
       },
       {
         test: /\.scss$/,
         use: [
           MiniCssExtractPlugin.loader,
           {
-            loader: 'css-loader'
+            loader: 'css-loader',
           },
-          'sass-loader'
-        ]
+          'sass-loader',
+        ],
       },
       {
         test: /\.vue$/,
@@ -39,19 +39,19 @@ module.exports = {
           loaders: {
             css: ['vue-style-loader', 'css-loader'],
             postcss: ['vue-style-loader', 'css-loader'],
-            scss: ['vue-style-loader', 'css-loader', 'sass-loader']
-          }
-        }
-      }
-    ]
+            scss: ['vue-style-loader', 'css-loader', 'sass-loader'],
+          },
+        },
+      },
+    ],
   },
 
   plugins: [
     new CleanWebpackPlugin(),
     new MiniCssExtractPlugin({
       filename: `${pathEnum.cssFolder}/[name].css`,
-      chunkFilename: `${pathEnum.cssFolder}/[name].css`
-    })
+      chunkFilename: `${pathEnum.cssFolder}/[name].css`,
+    }),
   ],
 
   devtool: 'source-map',
@@ -64,9 +64,9 @@ module.exports = {
         parallel: true,
         // Enable file caching
         cache: true,
-        sourceMap: true
+        sourceMap: true,
       }),
-      new OptimizeCSSAssetsPlugin()
+      new OptimizeCSSAssetsPlugin(),
     ],
     // Automatically split vendor and commons
     // https://twitter.com/wSokra/status/969633336732905474
@@ -76,18 +76,18 @@ module.exports = {
         vendors: {
           test: /[\\/]node_modules[\\/]/,
           name: 'vendors',
-          chunks: 'initial'
+          chunks: 'initial',
         },
         async: {
           test: /[\\/]node_modules[\\/]/,
           name: 'async',
           chunks: 'async',
-          minChunks: 4
-        }
-      }
+          minChunks: 4,
+        },
+      },
     },
     // Keep the runtime chunk seperated to enable long term caching
     // https://twitter.com/wSokra/status/969679223278505985
-    runtimeChunk: true
-  }
+    runtimeChunk: true,
+  },
 }

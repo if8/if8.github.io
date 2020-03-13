@@ -20,21 +20,26 @@ module.exports = ({
   output: {
     path: pathEnum.path,
     publicPath: pathEnum.publicPath,
-    ...output
+    ...output,
   },
 
   resolve: {
     modules: ['src', 'node_modules'],
-    extensions: ['*', '.vue', '.js', '.jsx', '.css', '.scss'],
-    alias: pathEnum.resolveAlias
+    extensions: ['*', '.vue', '.js', '.ts', '.css', '.scss'],
+    alias: pathEnum.resolveAlias,
   },
 
   module: {
     rules: [
       {
-        test: /\.(js|jsx)$/,
+        test: /\.tsx?$/,
+        loader: 'ts-loader',
+        options: { appendTsSuffixTo: [/\.vue$/] },
+      },
+      {
+        test: /\.jsx?$/,
         loader: 'babel-loader',
-        exclude: /(node_modules)/
+        exclude: /(node_modules)/,
       },
       {
         test: /\.(png|jpg|gif|svg)$/,
@@ -42,10 +47,10 @@ module.exports = ({
           {
             loader: 'file-loader',
             options: {
-              outputPath: pathEnum.imagesFolder
-            }
-          }
-        ]
+              outputPath: pathEnum.imagesFolder,
+            },
+          },
+        ],
       },
       {
         test: /\.(woff2|ttf|woff|eot)$/,
@@ -53,32 +58,32 @@ module.exports = ({
           {
             loader: 'file-loader',
             options: {
-              outputPath: pathEnum.fontsFolder
-            }
-          }
-        ]
+              outputPath: pathEnum.fontsFolder,
+            },
+          },
+        ],
       },
-      ...module.rules
-    ]
+      ...module.rules,
+    ],
   },
 
   plugins: [
     ...plugins,
     new webpack.EnvironmentPlugin({
-      NODE_ENV: mode
+      NODE_ENV: mode,
     }),
     new webpack.ProgressPlugin(),
     new HtmlWebpackPlugin({
       template: pathEnum.templatePath,
-      filename: 'index.html'
+      filename: 'index.html',
     }),
     new CopyWebpackPlugin([
       {
         from: pathEnum.srcStaticPath,
-        to: pathEnum.outputPath
-      }
+        to: pathEnum.outputPath,
+      },
     ]),
-    new VueLoaderPlugin()
+    new VueLoaderPlugin(),
   ],
 
   devtool,
@@ -86,8 +91,8 @@ module.exports = ({
   externals: {
     vue: 'Vue',
     vuex: 'Vuex',
-    'vue-router': 'VueRouter'
+    'vue-router': 'VueRouter',
   },
 
-  ...envConfig
+  ...envConfig,
 })
