@@ -34,7 +34,7 @@ module.exports = (object, options = {}) => {
         }
 
         return item
-      })
+      }),
     )
 
     return result

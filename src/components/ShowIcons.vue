@@ -13,9 +13,9 @@ export default {
   name: 'ShowIcons',
   data() {
     return {
-      nameList: IconNameList
+      nameList: IconNameList,
     }
-  }
+  },
 }
 </script>
 

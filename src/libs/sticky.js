@@ -20,7 +20,7 @@ function isBfcElement(element) {
       'table-cell',
       'table-caption',
       'flex',
-      'inline-flex'
+      'inline-flex',
     ].includes(elementStyle.getPropertyValue('display'))
   )
 }
@@ -63,7 +63,7 @@ class Sticky {
       xStuckClass: o.xStuckClass || 'js-x-stuck',
       xStickyClass: o.xStickyClass || 'js-x-sticky',
       xStickyChangeClass: o.xStickyChangeClass || 'js-x-sticky--change',
-      xStickyChangeNumber: o.xStickyChangeNumber || null
+      xStickyChangeNumber: o.xStickyChangeNumber || null,
     }
     this.stickyVal = o.isForcePolyfill ? '' : _getStickyVal()
     this.target = target
@@ -190,7 +190,7 @@ class Sticky {
       distanceBottom:
         getScrollBottom(scrollTop) +
         (sRect.bottom - this.options.bottom) -
-        tRect.bottom
+        tRect.bottom,
     }
   }
 
@@ -210,7 +210,7 @@ class Sticky {
       xStuckClass,
       xStickyClass,
       xStickyChangeClass,
-      xStickyChangeNumber
+      xStickyChangeNumber,
     } = this.options
     let newY = 0
     let newX = 0

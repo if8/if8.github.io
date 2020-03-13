@@ -4,7 +4,7 @@
       v-show="visible"
       :style="{
         right: styleRight,
-        bottom: styleBottom
+        bottom: styleBottom,
       }"
       class="back-top"
       @click.stop="handleClick"
@@ -26,26 +26,26 @@ export default {
   props: {
     visibilityHeight: {
       type: Number,
-      default: 200
+      default: 200,
     },
     target: {
       type: String,
-      default: ''
+      default: '',
     },
     right: {
       type: Number,
-      default: 40
+      default: 40,
     },
     bottom: {
       type: Number,
-      default: 40
-    }
+      default: 40,
+    },
   },
   data() {
     return {
       el: null,
       container: null,
-      visible: false
+      visible: false,
     }
   },
   computed: {
@@ -54,7 +54,7 @@ export default {
     },
     styleRight() {
       return `${this.right}px`
-    }
+    },
   },
   mounted() {
     this.init()
@@ -102,8 +102,8 @@ export default {
         }
       }
       rAF(frameFunc)
-    }
-  }
+    },
+  },
 }
 </script>
 <style lang="scss" scoped>

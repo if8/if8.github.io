@@ -6,7 +6,7 @@ InterceptorManager.prototype.use = function use(fulfilled, rejected) {
   return (
     this.handlers.push({
       fulfilled: fulfilled,
-      rejected: rejected
+      rejected: rejected,
     }) - 1
   )
 }
@@ -28,7 +28,7 @@ InterceptorManager.prototype.forEach = function forEach(fn) {
 export default function Middleware() {
   this.interceptors = {
     before: new InterceptorManager(),
-    after: new InterceptorManager()
+    after: new InterceptorManager(),
   }
 }
 

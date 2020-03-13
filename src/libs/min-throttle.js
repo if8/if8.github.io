@@ -1,7 +1,7 @@
 export function throttle(
   callback,
   wait = 200,
-  { start = true, middle = true, once = false } = {}
+  { start = true, middle = true, once = false } = {},
 ) {
   let last = 0
   let timer

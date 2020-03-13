@@ -43,7 +43,7 @@
 
 <script>
 export default {
-  name: 'PersonCard'
+  name: 'PersonCard',
 }
 </script>
 

@@ -29,7 +29,7 @@ export default function(Vue, Router) {
     base: '/',
     linkActiveClass: 'active',
     scrollBehavior: () => ({ y: 0 }),
-    routes: asyncRouterArr.concat(constantRouterArr)
+    routes: asyncRouterArr.concat(constantRouterArr),
   })
 
   routerInstance.beforeEach((to, from, next) => {

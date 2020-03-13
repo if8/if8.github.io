@@ -7,8 +7,8 @@ export default {
   name: 'NotFound',
   metaInfo: {
     title: '被UFO带走',
-    titleTemplate: '%s | AimWhy'
-  }
+    titleTemplate: '%s | AimWhy',
+  },
 }
 </script>
 <style lang="scss" scoped>

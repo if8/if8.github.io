@@ -1,5 +1,5 @@
 const state = {
-  isShow: false
+  isShow: false,
 }
 
 const getters = {}
@@ -7,20 +7,20 @@ const getters = {}
 const mutations = {
   setShowAlert(state, data) {
     state.isShow = data
-  }
+  },
 }
 
 const actions = {
   fetchShowAlert(context, v) {
     context.commit('setShowAlert', v)
-  }
+  },
 }
 
 export const global = {
   state,
   getters,
   mutations,
-  actions
+  actions,
 }
 
 const files = require.context('@pages', true, /store.js$/)

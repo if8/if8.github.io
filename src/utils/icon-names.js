@@ -1405,5 +1405,5 @@ export const IconNameList = [
   'yoast',
   'youtube',
   'youtube-square',
-  'zhihu'
+  'zhihu',
 ]

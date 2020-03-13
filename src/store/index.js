@@ -8,7 +8,7 @@ export default function init(Vue, Vuex) {
     ...global,
     modules,
     strict: false,
-    plugins: []
+    plugins: [],
   })
 
   return storeInstance

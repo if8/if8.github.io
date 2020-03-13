@@ -72,5 +72,5 @@ export default {
       output[i] = JSON.stringify(input[i], replace, space)
     }
     return '[' + output.join(',') + ']'
-  }
+  },
 }

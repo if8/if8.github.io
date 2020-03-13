@@ -7,7 +7,7 @@ window.addEventListener(
       captureScrollQueue[i](e)
     }
   },
-  true
+  true,
 )
 
 export function addCaptureScroll(f) {

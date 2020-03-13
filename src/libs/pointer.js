@@ -19,7 +19,7 @@ window.addEventListener(
       sDistY = 0
     }, 100)
   },
-  true
+  true,
 )
 
 body.addEventListener('mousedown', pointerDown)

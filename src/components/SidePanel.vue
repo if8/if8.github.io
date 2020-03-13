@@ -68,9 +68,9 @@ export default {
   name: 'SidePanel',
   data() {
     return {
-      a: 1
+      a: 1,
     }
-  }
+  },
 }
 </script>
 

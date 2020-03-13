@@ -16,7 +16,7 @@ export class AsyncQueue {
 
     this.resolve({
       value: Promise.resolve(value),
-      nextPromise
+      nextPromise,
     })
 
     this.resolve = resolveNext
