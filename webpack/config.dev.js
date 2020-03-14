@@ -4,7 +4,7 @@ const pathEnum = require('./path.enum')
 module.exports = {
   mode: 'development',
 
-  entry: ['webpack-hot-middleware/client?reload=true'],
+  entry: [],
 
   output: {
     filename: '[name].js',
@@ -50,6 +50,7 @@ module.exports = {
 
   devServer: {
     compress: true,
+    // contentBase: pathEnum.srcStaticPath,
     historyApiFallback: true,
     open: true,
     hot: true,

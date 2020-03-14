@@ -5,9 +5,14 @@ import testRouter from './test/router.js'
 export function loadDynamic({ router, to, next }) {
   if (to.meta.isDynamic) {
     let toPathList = to.path.split('/')
-    loadjs(`/checkProduct.js?rootPath=${toPathList[1]}`)
-      .catch(r => {
+    loadjs(
+      `https://unpkg.com/jquery@3.4.1/dist/jquery.js?rootPath=${toPathList[1]}`,
+    )
+      .then(r => {
         // todo 从指定池子中加载
+        $(function() {
+          alert(10000)
+        })
         let productRoutes = testRouter(toPathList[1])
         router.addRoutes(productRoutes)
 
