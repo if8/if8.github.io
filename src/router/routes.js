@@ -3,6 +3,7 @@ import CompError from '@components/CompError.vue'
 import CompLoading from '@components/CompLoading.vue'
 import NotFound from '@components/NotFound.vue'
 import SiteIntro from '@components/business/SiteIntro.vue'
+import RouteDynamic from '@components/business/RouteDynamic.vue'
 import ShowIcons from '@components/ShowIcons.vue'
 
 export function lazyLoadView(AsyncView) {
@@ -90,7 +91,10 @@ export const constantRouterArr = [
   },
   {
     path: '*',
-    redirect: '/404',
+    meta: {
+      isDynamic: true,
+    },
+    component: RouteDynamic,
   },
 ]
 

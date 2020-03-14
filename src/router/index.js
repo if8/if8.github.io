@@ -1,5 +1,5 @@
 import { asyncRouterArr, constantRouterArr } from './routes'
-import { recordChannel } from './hooks'
+import { recordChannel, loadDynamic } from './hooks'
 
 function nextFactory(context, middlewareArr, index) {
   const subsequentMiddleware = middlewareArr[index]
@@ -17,10 +17,8 @@ function nextFactory(context, middlewareArr, index) {
   }
 }
 
-export default function(Vue, Router) {
-  Vue.use(Router)
-
-  const routerInstance = new Router({
+function createRouter(Router) {
+  return new Router({
     mode: 'hash',
     /*
       @desc: base,应用的基路径;如整个单页应用服务在 /app/ 下，base 就应该设为 "/app/";
@@ -31,11 +29,17 @@ export default function(Vue, Router) {
     scrollBehavior: () => ({ y: 0 }),
     routes: asyncRouterArr.concat(constantRouterArr),
   })
+}
+
+export default function(Vue, Router) {
+  Vue.use(Router)
+
+  const routerInstance = createRouter(Router)
 
   routerInstance.beforeEach((to, from, next) => {
     // 不是初始化页面
 
-    let middlewareArr = [recordChannel]
+    let middlewareArr = [recordChannel, loadDynamic]
 
     to.matched.reduce(function(accumulator, item) {
       if (Array.isArray(item.meta.middleware)) {
@@ -54,6 +58,14 @@ export default function(Vue, Router) {
 
   // routerInstance.afterEach((to, from) => {
   // })
+
+  const resetRouter = function resetRouter() {
+    const newRouter = createRouter(Router)
+    // reset matcher
+    routerInstance.matcher = newRouter.matcher
+  }
+
+  routerInstance.reset = resetRouter
 
   return routerInstance
 }
