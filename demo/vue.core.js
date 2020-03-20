@@ -1,31 +1,30 @@
-class Deb {
-  constructor () {
+class Dep {
+  constructor() {
     this.subs = []
   }
 }
-Deb.target = null
+Dep.target = null
 
-
-function observer (vm, key, val) {
-  let dep = new dep()
+function observer(vm, key, val) {
+  let dep = new Dep()
   Object.defineProperty(vm, key, {
-    get () {
+    get() {
       if (Dep.target) {
         dep.subs.push(Dep.target)
       }
       return val
     },
-    set (newVal) {
+    set(newVal) {
       val = newVal
       for (let cb of dep.subs) {
         cb.call(vm)
       }
-    }
+    },
   })
 }
 
 class Watcher {
-  constructor (vm, render) {
+  constructor(vm, render) {
     Dep.target = render
     render.call(vm)
     Dep.target = null
@@ -33,7 +32,7 @@ class Watcher {
 }
 
 class Vue {
-  constructor (option) {
+  constructor(option) {
     let data = option.data()
     let depMethods = option.depMethods
 
@@ -49,17 +48,17 @@ class Vue {
 /// <p class="text"></p>
 
 let vm = new Vue({
-  data () {
+  data() {
     return { msg: 1 }
   },
   depMethods: {
-    computedA () {
+    computedA() {
       return this.msg + 1
     },
-    render () {
+    render() {
       document.querySelector('.text').innerText = this.msg
-    }
-  }
+    },
+  },
 })
 
 vm.msg = 333

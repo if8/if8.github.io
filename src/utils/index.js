@@ -140,3 +140,62 @@ export function getCache(key) {
   var item = cache[key]
   return item == void 0 ? void 0 : item.data
 }
+
+const matchOperatorsRegex = /[|\\{}()[\]^$+*?.-]/g
+
+export function escapeStringRegexp(str) {
+  if (typeof str !== 'string') {
+    throw new TypeError('Expected a string')
+  }
+
+  return str.replace(matchOperatorsRegex, '\\$&')
+}
+
+export function copyTextToClipboard(input) {
+  const element = document.createElement('textarea')
+  const previouslyFocusedElement = document.activeElement
+
+  element.value = input
+
+  // Prevent keyboard from showing on mobile
+  element.setAttribute('readonly', '')
+
+  element.style.contain = 'strict'
+  element.style.position = 'absolute'
+  element.style.left = '-9999px'
+  element.style.fontSize = '12pt' // Prevent zooming on iOS
+
+  const selection = document.getSelection()
+  let originalRange = false
+  if (selection.rangeCount > 0) {
+    originalRange = selection.getRangeAt(0)
+  }
+
+  document.body.append(element)
+  element.select()
+
+  // Explicit selection workaround for iOS
+  element.selectionStart = 0
+  element.selectionEnd = input.length
+
+  let isSuccess = false
+  try {
+    isSuccess = document.execCommand('copy')
+  } catch (_) {
+    isSuccess = false
+  }
+
+  element.remove()
+
+  if (originalRange) {
+    selection.removeAllRanges()
+    selection.addRange(originalRange)
+  }
+
+  // Get the focus back on the previously focused element, if any
+  if (previouslyFocusedElement) {
+    previouslyFocusedElement.focus()
+  }
+
+  return isSuccess
+}
