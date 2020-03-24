@@ -173,9 +173,9 @@ export default function loadjs(paths, arg1, arg2) {
   }
 
   if (typeof args === 'function') {
-    args = Object.assign({ success: args }, defaultArgs)
+    args = Object.assign(defaultArgs, { success: args })
   } else {
-    args = Object.assign({}, args, defaultArgs)
+    args = Object.assign({}, defaultArgs, args)
   }
 
   // throw error if bundle is already defined
