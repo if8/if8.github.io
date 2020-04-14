@@ -20,6 +20,7 @@ module.exports = {
       {
         test: /\.css$/,
         use: [MiniCssExtractPlugin.loader, 'css-loader'],
+        exclude: /node_modules/,
       },
       {
         test: /\.scss$/,
@@ -30,6 +31,7 @@ module.exports = {
           },
           'sass-loader',
         ],
+        exclude: /node_modules/,
       },
       {
         test: /\.vue$/,
