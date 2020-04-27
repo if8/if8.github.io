@@ -1,6 +1,14 @@
 const getPropertyValue = (node, style, view = window) =>
   view.getComputedStyle(node, null).getPropertyValue(style)
 
+let getPoint = obj => {
+  let t = obj.offsetTop
+  while ((obj = obj.offsetParent)) {
+    t += obj.offsetTop
+  }
+  return t
+}
+
 class Draggable {
   constructor(node, box) {
     this.node = node

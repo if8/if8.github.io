@@ -1,4 +1,4 @@
-function create(Con, ...args) {
+function _new(Con, ...args) {
   this.obj = {}
 
   Object.setPrototypeOf(this.obj, Con.prototype)
@@ -6,6 +6,56 @@ function create(Con, ...args) {
   let result = Con.apply(this.obj, args)
 
   return result instanceof Object ? result : this.obj
+}
+function _new2(constructor, ...args) {
+  let target = {}
+  target.__proto__ = constructor.prototype
+  let result = constructor.apply(target, args)
+  return result && (typeof result === 'object' || typeof result === 'function')
+    ? result
+    : target
+}
+
+function klone(x, hash = new WeakMap()) {
+  if (typeof x !== 'object') {
+    return x
+  }
+  if (hash.has(x)) {
+    return hash.get(x)
+  }
+
+  let k
+  let tmp = x
+  let typeStr = Object.prototype.toString.call(x)
+
+  if (typeStr === '[object Object]') {
+    tmp = {}
+    hash.set(x, tmp)
+    for (k in x) {
+      tmp[k] = klone(x[k], hash)
+    }
+  } else if (typeStr === '[object Array]') {
+    k = x.length
+    tmp = new Array(k)
+    hash.set(x, tmp)
+    while (k--) {
+      tmp[k] = klone(x[k], hash)
+    }
+  } else if (typeStr === '[object Set]') {
+    tmp = new Set()
+    hash.set(x, tmp)
+    x.forEach(v => tmp.add(klone(v, hash)))
+  } else if (typeStr === '[object Map]') {
+    tmp = new Map()
+    hash.set(x, tmp)
+    x.forEach((v, k) => tmp.set(klone(k, hash), klone(v, hash)))
+  } else if (typeStr === '[object Date]') {
+    tmp = new Date(+x)
+  } else if (typeStr === '[object RegExp]') {
+    tmp = new RegExp(x.source, x.flags)
+    tmp.lastIndex = x.lastIndex
+  }
+  return tmp
 }
 
 // 多层嵌套数组去重排序
@@ -30,7 +80,7 @@ Array.myIsArray = function(o) {
   return Object.prototype.toString.call(Object(o)) === '[object Array]'
 }
 
-function _new(o) {
+function create(o) {
   var F = function() {}
   F.prototype = o
   return new F()
@@ -448,4 +498,163 @@ function computed(fn) {
     },
   }
   return computed
+}
+
+function sort(originalArray, comparator) {
+  const array = originalArray.slice()
+
+  if (array.length <= 1) {
+    return array
+  }
+
+  const leftArray = []
+  const rightArray = []
+  const pivotElement = array.shift()
+  const centerArray = [pivotElement]
+
+  while (array.length) {
+    const currentElement = array.shift()
+    const comp = comparator(currentElement, pivotElement)
+
+    if (comp === 0) {
+      centerArray.push(currentElement)
+    } else if (comp < 0) {
+      leftArray.push(currentElement)
+    } else {
+      rightArray.push(currentElement)
+    }
+  }
+
+  const leftArraySorted = sort(leftArray, comparator)
+  const rightArraySorted = sort(rightArray, comparator)
+
+  return leftArraySorted.concat(centerArray, rightArraySorted)
+}
+
+function initCallbacks(callbacks = {}) {
+  const initiatedCallback = callbacks
+  const stubCallback = () => {}
+  const defaultAllowTraversal = () => true
+
+  initiatedCallback.allowTraversal =
+    callbacks.allowTraversal || defaultAllowTraversal
+  initiatedCallback.enterNode = callbacks.enterNode || stubCallback
+  initiatedCallback.leaveNode = callbacks.leaveNode || stubCallback
+
+  return initiatedCallback
+}
+
+export default function breadthFirstSearch(rootNode, originalCallbacks) {
+  const callbacks = initCallbacks(originalCallbacks)
+  const nodeQueue = [rootNode]
+
+  while (!nodeQueue.length) {
+    const currentNode = nodeQueue.shift()
+
+    callbacks.enterNode(currentNode)
+
+    if (
+      currentNode.left &&
+      callbacks.allowTraversal(currentNode, currentNode.left)
+    ) {
+      nodeQueue.push(currentNode.left)
+    }
+
+    if (
+      currentNode.right &&
+      callbacks.allowTraversal(currentNode, currentNode.right)
+    ) {
+      nodeQueue.push(currentNode.right)
+    }
+
+    callbacks.leaveNode(currentNode)
+  }
+}
+
+export function depthFirstSearchRecursive(node, callbacks) {
+  callbacks.enterNode(node)
+
+  if (node.left && callbacks.allowTraversal(node, node.left)) {
+    depthFirstSearchRecursive(node.left, callbacks)
+  }
+
+  if (node.right && callbacks.allowTraversal(node, node.right)) {
+    depthFirstSearchRecursive(node.right, callbacks)
+  }
+
+  callbacks.leaveNode(node)
+}
+
+export function depthFirstSearch(rootNode, callbacks) {
+  const processedCallbacks = initCallbacks(callbacks)
+  depthFirstSearchRecursive(rootNode, processedCallbacks)
+}
+
+export function binarySearch(sortedArray, seekElement, comparatorCallback) {
+  let startIndex = 0
+  let endIndex = sortedArray.length - 1
+
+  while (startIndex <= endIndex) {
+    const middleIndex = startIndex + Math.floor((endIndex - startIndex) / 2)
+    const comp = comparatorCallback(sortedArray[middleIndex], seekElement)
+
+    if (comp === 0) {
+      return middleIndex
+    }
+
+    if (comp < 0) {
+      startIndex = middleIndex + 1
+    } else {
+      endIndex = middleIndex - 1
+    }
+  }
+
+  return -1
+}
+
+export function interpolationSearch(sortedArray, seekElement) {
+  let leftIndex = 0
+  let rightIndex = sortedArray.length - 1
+
+  while (leftIndex <= rightIndex) {
+    const rangeDelta = sortedArray[rightIndex] - sortedArray[leftIndex]
+    const indexDelta = rightIndex - leftIndex
+    const valueDelta = seekElement - sortedArray[leftIndex]
+
+    if (valueDelta < 0) {
+      return -1
+    }
+
+    if (!rangeDelta) {
+      return sortedArray[leftIndex] === seekElement ? leftIndex : -1
+    }
+
+    const middleIndex =
+      leftIndex + Math.floor((valueDelta * indexDelta) / rangeDelta)
+
+    if (sortedArray[middleIndex] === seekElement) {
+      return middleIndex
+    }
+
+    if (sortedArray[middleIndex] < seekElement) {
+      leftIndex = middleIndex + 1
+    } else {
+      rightIndex = middleIndex - 1
+    }
+  }
+
+  return -1
+}
+
+const mySetInterval = (cb, time) => {
+  let idMap = {}
+  const fn = () => {
+    cb() // 执行传入的回调函数
+    idMap.id = setTimeout(() => {
+      // 闭包更新timeId
+      fn() // 递归调用自己
+    }, time)
+  }
+  idMap.id = setTimeout(fn, time) // 第一个setTimeout
+  return idMap
 }
